@@ -8,7 +8,7 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 * [Themes](##Help)
 * [Reference](##Help)
 
-##Global Features
+## Global Features
 * Based on [Flex](https://www.w3schools.com/css/css3_flexbox.asp) Design
 * Built using [Less](http://lesscss.org/)
 * Searchable
@@ -17,11 +17,11 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 * Extensive UI Styling Options
 * Custom Themes
 
-##Dropdown Features
+## Dropdown Features
 * Autocomplete
 * Custom Item/Tag Addition
    
-##Table Features
+## Table Features
 * Sortable
 * Custom Header Aliases
 * Custom Column Input Type
