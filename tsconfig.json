@@ -16,6 +16,16 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "gnx-ui": [
+        "dist/gnx-ui",
+        "dist/gnx-ui"
+      ],
+      "gnx-ui/*": [
+        "dist/gnx-ui/*",
+        "dist/gnx-ui/*"
+      ]
+    }
   }
 }

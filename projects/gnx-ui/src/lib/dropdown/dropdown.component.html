@@ -1,0 +1,58 @@
+<div class="dropdown" [style.width]="style['width']" [style.minWidth]="style['min-width']">
+    <!--Button Container-->
+    <div #parentdiv class="dropdown-button" id="app-dropdown-id" (click)="toggleItemDisplay($event)">
+
+        <div class="singleselect-container" *ngIf="!isMultiSelect">
+            <div class="placeholder">
+                <header>{{placeholder}}</header>
+                <header (click)="clearSelected()" *ngIf="isClearable && style['deleteiconsrc'] === undefined ">X</header>
+                <img [src]="style['deleteiconsrc']" (click)="clearSelected()" width="20" height="20" *ngIf="isClearable && style['deleteiconsrc'] !== undefined">
+            </div>
+        </div>
+        <div class="multiselect-container" *ngIf="isMultiSelect">
+            <div class="multiselect-item-container" *ngIf="multiSelectedItems.length > 0">
+                <div class="multiselect-item" *ngFor="let item of multiSelectedItems">
+                    <header *ngIf="item[bindLabel] === undefined">{{item}}<span (click)="deleteItem(item)">X</span></header>
+                    <header *ngIf="item[bindLabel] !== undefined">{{item[bindLabel]}}<span (click)="deleteItem(item)">X</span></header>
+                </div>
+            </div>
+            <div class="placeholder multiselect-placeholder" [ngClass]="{'spread':multiSelectedItems.length > 0}">
+                <header *ngIf="multiSelectedItems.length === 0">{{placeholder}}</header>
+                <header (click)="clearSelected()" *ngIf="multiSelectedItems.length !== 0 && isClearable && style['deleteiconsrc'] === undefined ">X</header>
+                <img [src]="style['deleteiconsrc']" (click)="clearSelected()" width="20" height="20" *ngIf="multiSelectedItems.length !== 0 && isClearable && style['deleteiconsrc'] !== undefined">
+            </div>
+        </div>
+    </div>
+
+
+    <!--Content Container-->
+    <div class="dropdown-content" [style.marginTop.px]="parentdiv.offsetHeight + 3">
+        <!--List of Items-->
+        <div class="dropdown-items" *ngIf="isItemsDisplayed && !isErrorOccured">
+            <div class="dropdown-search-box" *ngIf="isSearchable">
+                <input placeholder="Search..." [(ngModel)]="searchText" (keyup.enter)="addMultiItems()">
+            </div>
+
+            <header class="customItems" *ngIf="customItems.length !== 0">Custom Items</header>
+            <div *ngFor="let item of customItems | textFilter:[searchText,bindLabel]" class="dropdown-item" (click)="selectItem(item)">
+                <header *ngIf="bindLabel === undefined">{{item}}</header>
+                <header *ngIf="bindLabel !== undefined">{{item[bindLabel]}}</header>
+            </div>
+
+            <header class="customItems" *ngIf="customItems.length !== 0">Regular Items</header>
+            <div *ngFor="let item of items | textFilter:[searchText,bindLabel]" class="dropdown-item" (click)="selectItem(item)">
+                <header *ngIf="!isBindEnabled">{{item}}</header>
+                <header *ngIf="isBindEnabled && item[bindLabel] !== undefined">{{item[bindLabel]}}</header>
+                <header *ngIf="isBindEnabled && item[bindLabel] === undefined">{{item | json}}</header>
+            </div>
+
+        </div>
+
+
+        <div class="dropdown-no-item-error" *ngIf="isItemsDisplayed && isErrorOccured">
+            <header>{{errormessage}}</header>
+        </div>
+
+
+    </div>
+</div>

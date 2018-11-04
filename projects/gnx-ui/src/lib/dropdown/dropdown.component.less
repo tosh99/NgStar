@@ -1,0 +1,170 @@
+//PARAMS
+@min-height: 36px;
+@min-width: 100px;
+@width: 100%;
+@border-color: #cccccc;
+@border-highlight-color: #ed8b00;
+@light-border-color: rgba(0, 0, 0, 0.05);
+
+.dropdown {
+    min-height: @min-height;
+    min-width: @min-width;
+    width: @width;
+    font-size: 14px;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+
+    .dropdown-button {
+        width: @width;
+
+        display: flex;
+        align-items: center;
+        border: 1px solid @border-color;
+        border-radius: 4px;
+        padding: 5px 0 5px 0;
+        cursor: pointer;
+
+        .placeholder {
+            width: 100%;
+            word-break: break-all;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            header, img {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+        }
+
+        .singleselect-container {
+            width: 100%;
+
+            .placeholder {
+                width: 100%;
+            }
+        }
+
+        .multiselect-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            .placeholder {
+                width: unset;
+                justify-content: center;
+
+                img {
+                    margin: 0;
+                }
+
+            }
+
+            .multiselect-item-container {
+                width: 100%;
+
+                .multiselect-item {
+                    float: left;
+                    word-break: break-all;
+
+                    header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin: 3px;
+                        padding: 1px 6px 2px 6px;
+                        border: 1px solid @border-highlight-color;
+                        border-radius: 4px;
+
+                        span {
+                            margin-left: 10px;
+                        }
+
+                    }
+                }
+
+            }
+
+            .spread {
+                width: 30px;
+            }
+        }
+
+    }
+
+    .dropdown-content {
+        width: @width;
+        margin-top: @min-height;
+        position: absolute;
+        font-size: 14px;
+
+        .dropdown-items {
+            width: inherit;
+            border: 1px solid @border-color;
+            box-shadow: 0 2px 3px 1px rgb(200, 200, 200);
+            max-height: 250px;
+            overflow-y: auto;
+            border-radius: 4px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+
+            .dropdown-search-box {
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+
+                input {
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: 1px solid @border-color;
+                    padding-bottom: 5px;
+                    width: 100%;
+                }
+
+                input:focus {
+                    outline: none;
+                }
+            }
+
+            .customItems {
+                padding: 5px 10px 5px 10px;
+                font-weight: 700;
+            }
+
+            .dropdown-item {
+                cursor: pointer;
+                word-break: break-all;
+                transition: 0.5s;
+
+                header {
+                    padding: 5px 0 5px 5px;
+                    margin: 0 10px 0 10px;
+                    border-bottom: 1px solid @light-border-color;
+                }
+
+                header:hover {
+                    background-color: rgb(235, 235, 235);
+                    transition: 0.5s;
+                }
+            }
+
+        }
+
+        .dropdown-no-item-error {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid @border-color;
+            border-radius: 4px;
+
+        }
+
+    }
+
+}
