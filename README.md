@@ -8,7 +8,6 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 * [Themes](##Help)
 * [Reference](##Help)
 
-
 ##Global Features
 * Based on [Flex](https://www.w3schools.com/css/css3_flexbox.asp) Design
 * Built using [Less](http://lesscss.org/)
@@ -27,7 +26,6 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 * Custom Header Aliases
 * Custom Column Input Type
 * Custom Widths 
-
 
 ## Installation
 `Work in Progress. Yet to be published :)`
