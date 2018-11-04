@@ -1,5 +1,6 @@
-# GNX UI [![Build Status](https://travis-ci.com/tosh99/GNX-UI.png?branch=master)](https://travis-ci.com/tosh99/GNX-UI)
+[![Build Status](https://travis-ci.com/tosh99/GNX-UI.png?branch=master)](https://travis-ci.com/tosh99/GNX-UI)
 
+# GNX UI 
 The module is built using [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
 
 ## Table of Contents
