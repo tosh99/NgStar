@@ -709,6 +709,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var projects_gnx_ui_src_lib_gnx_ui_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! projects/gnx-ui/src/lib/gnx-ui.module */ "./projects/gnx-ui/src/lib/gnx-ui.module.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -719,7 +720,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-// import {DropdownComponent} from "projects/gnx-ui/src/lib/dropdown/dropdown.component";
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -732,7 +733,7 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 projects_gnx_ui_src_lib_gnx_ui_module__WEBPACK_IMPORTED_MODULE_3__["GnxUiModule"]
             ],
-            providers: [],
+            providers: [{ provide: _angular_common__WEBPACK_IMPORTED_MODULE_4__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_4__["HashLocationStrategy"] }],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         })
     ], AppModule);
