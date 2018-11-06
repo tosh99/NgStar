@@ -13,9 +13,8 @@ export class AppComponent implements OnInit {
     selectedItem = [];
     selectedObjectItem = [];
     style = {
-        'width': '100px',
+        'width': '250px',
         'min-width': '200px',
-        'deleteiconsrc': 'https://d30y9cdsu7xlg0.cloudfront.net/png/55049-200.png'
     };
 
     ngOnInit() {
@@ -32,5 +31,6 @@ export class AppComponent implements OnInit {
 
     hello() {
         console.log(this.selectedItem);
+        console.log(this.selectedObjectItem);
     }
 }

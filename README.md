@@ -2,6 +2,7 @@
 
 # GNX UI 
 The module is built using [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
+<br>For a demo of the module click [here](https://tosh99.github.io/GNX-UI/)
 
 ## Table of Contents
 * [Features](##Features)

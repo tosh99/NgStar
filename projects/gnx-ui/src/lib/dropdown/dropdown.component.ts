@@ -274,6 +274,9 @@ export class DropdownComponent implements OnInit, OnChanges {
                     this.selectedItem.push(item);
                 }
             }
+
+            console.log(item);
+            console.log( this.selectedItem);
         }
 
         this.isItemsDisplayed = false;
@@ -327,6 +330,7 @@ export class DropdownComponent implements OnInit, OnChanges {
             this.customItems = [];
             this.selectedItem = [];
         } else {
+            this.selectedItem = undefined;
             this.setSelectedItemText(this.placeholder);
         }
         this.onChangeEmit();
