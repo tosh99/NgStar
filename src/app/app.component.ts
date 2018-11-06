@@ -9,7 +9,9 @@ export class AppComponent implements OnInit {
     title = 'gnx-ui-app';
 
     items = [];
-    selectedItem;
+    objectitems = [];
+    selectedItem = [];
+    selectedObjectItem = [];
     style = {
         'width': '100px',
         'min-width': '200px',
@@ -19,9 +21,11 @@ export class AppComponent implements OnInit {
     ngOnInit() {
 
         setTimeout(() => {
-            this.items = [{'id': 0, 'name': 'Anutosh_Mohit_Shubham_Mirana'}, {'id': 1, 'name': 'While'}];
-            // this.items = ['Anutosh', 'Mohit', 'Shubham'];
-            // this.selectedItem = [this.items[0]];
+            this.objectitems = [{'id': 0, 'name': 'Item1'}, {'id': 1, 'name': 'Item2'}];
+            this.selectedObjectItem = [this.objectitems[0]];
+
+            this.items = ['Item1', 'Item Long Text', 'Item Very Long Text', 'Item Very Very Extra Long Text', 'Sample 1', 'Sample 2', 'Sample 3'];
+            this.selectedItem = [this.items[0]];
 
         }, 200);
     }

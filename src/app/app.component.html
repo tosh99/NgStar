@@ -1,19 +1,18 @@
-<!--<gnx-ui-dropdown-->
-    <!--[items]="items"-->
-    <!--[(selectedItem)]="selectedItem"-->
-    <!--[bindLabel]="'name'"-->
-    <!--[bindValue]="'id'"-->
-    <!--[isMultiSelect]="true"-->
-    <!--[isSearchable]="false"-->
-    <!--[isSelectBindValue]="false"-->
-    <!--[placeholder]="'Please select user'"-->
-    <!--[style]="style"-->
-    <!--(selectedItemChange)="hello()">-->
-<!--</gnx-ui-dropdown>-->
-<gnx-ui-dropdown
-    placeholder="This is Fin"
-    [items]="items"
-    bindLabel="name"
-    bindValue="id"
-
-></gnx-ui-dropdown>
+<div style="margin: 20px">
+    <gnx-ui-dropdown
+        [placeholder]="'Placeholder'"
+        [items]="items"
+        [style]="style"
+    ></gnx-ui-dropdown>
+    <gnx-ui-dropdown
+        [items]="objectitems"
+        [bindLabel]="'name'"
+        [bindValue]="'id'"
+        [isMultiSelect]="true"
+        [isSearchable]="false"
+        [isSelectBindValue]="false"
+        [placeholder]="'Placeholder'"
+        [style]="style"
+        (selectedItemChange)="hello()"
+    ></gnx-ui-dropdown>
+</div>

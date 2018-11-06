@@ -19,6 +19,8 @@ export class DropdownComponent implements OnInit, OnChanges {
     @Input() isAddTag: boolean;
     @Input() isSelectBindValue: boolean;
     @Input() style: any;
+    @Input() theme: string;
+    @Input() isDebugMode: boolean;
 
     // Outputs
     @Output() selectedItemChange = new EventEmitter();
@@ -31,20 +33,25 @@ export class DropdownComponent implements OnInit, OnChanges {
     errormessage;
     multiSelectedItems: Array<any>;
     isBindEnabled;
+    buttonValue;
+    isMultiSelectInitialised: boolean;
 
     constructor() {
     }
 
     @HostListener('document:click', ['$event']) clickedOutside($event) {
-        // this.isItemsDisplayed = false;
+        this.isItemsDisplayed = false;
     }
 
     ngOnInit() {
+        console.log('init');
+
         // Close Dropdown By Default
         this.isItemsDisplayed = false;
         this.isBindEnabled = false;
         this.multiSelectedItems = [];
         this.customItems = [];
+        this.isMultiSelectInitialised = false;
 
 
         if (this.items === undefined) {
@@ -67,6 +74,10 @@ export class DropdownComponent implements OnInit, OnChanges {
             this.isClearable = true;
         }
 
+        if (this.isDebugMode === undefined) {
+            this.isDebugMode = false;
+        }
+
         if (this.style === undefined) {
             this.style = {};
         }
@@ -77,6 +88,13 @@ export class DropdownComponent implements OnInit, OnChanges {
 
         if (this.placeholder === undefined) {
             this.placeholder = 'Select';
+            this.buttonValue = 'Select';
+        } else {
+            this.buttonValue = this.placeholder;
+        }
+
+        if (this.theme === undefined) {
+            this.theme = 'material';
         }
 
 
@@ -85,14 +103,14 @@ export class DropdownComponent implements OnInit, OnChanges {
         }
 
         // Set PlaceHolder
-        this.setSelectedItemText(this.placeholder);
+        this.setSelectedItemText(this.buttonValue);
 
 
     }
 
     ngOnChanges() {
+        console.log('changes');
         this.isErrorOccured = false;
-
         if (this.items === undefined) {
             this.showError('Loading Items');
         } else if (this.items.length > 0) {
@@ -102,7 +120,7 @@ export class DropdownComponent implements OnInit, OnChanges {
             } else if (this.bindValue !== undefined && this.bindLabel === undefined) {
                 this.showError('Bind Error');
             } else if (typeof(this.items[0]) === 'object' && (this.bindValue === undefined || this.bindLabel === undefined)) {
-                this.showError('Bindings Absent');
+                this.showError('Please provide bindLabel and bindValue');
             } else {
                 this.isBindEnabled = typeof(this.items[0]) === 'object';
 
@@ -116,7 +134,6 @@ export class DropdownComponent implements OnInit, OnChanges {
 
                             let temp;
                             for (const val of this.items) {
-
                                 if (this.isBindEnabled && this.isSelectBindValue) {
                                     temp = val[this.bindValue];
                                 } else {
@@ -142,11 +159,12 @@ export class DropdownComponent implements OnInit, OnChanges {
                                 this.showError('Multiselect Selected Items must be an array');
                             } else if (this.findDuplicates(this.selectedItem)) {
                                 this.showError('Selected Items cannot have Duplicates');
-                            } else {
+                            } else if (this.selectedItem.length > 0) {
                                 let isfound = false;
 
                                 for (const val of this.items) {
                                     for (const valsel of this.selectedItem) {
+                                        console.log(valsel);
 
                                         let temp;
                                         if (this.isBindEnabled && this.isSelectBindValue) {
@@ -154,7 +172,8 @@ export class DropdownComponent implements OnInit, OnChanges {
                                         } else {
                                             temp = val;
                                         }
-                                        if (temp === valsel) {
+                                        console.log(temp);
+                                        if (temp === valsel && !this.isMultiSelectInitialised) {
                                             isfound = true;
                                             this.multiSelectedItems.push(val);
                                             break;
@@ -162,7 +181,7 @@ export class DropdownComponent implements OnInit, OnChanges {
                                     }
                                 }
 
-                                if (!isfound) {
+                                if (!isfound && !this.isMultiSelectInitialised) {
                                     this.showError('Selected Item Not Found in Multi Items');
                                 }
 
@@ -176,6 +195,11 @@ export class DropdownComponent implements OnInit, OnChanges {
         }
 
 
+    }
+
+    stopPropagation($event: Event) {
+        $event.preventDefault();
+        $event.stopPropagation();
     }
 
     findDuplicates(array) {
@@ -207,9 +231,9 @@ export class DropdownComponent implements OnInit, OnChanges {
 
     setSelectedItemText(text) {
         if (text !== undefined) {
-            this.placeholder = text;
+            this.buttonValue = text;
         } else {
-            this.placeholder = '';
+            this.buttonValue = '';
         }
     }
 
@@ -222,7 +246,6 @@ export class DropdownComponent implements OnInit, OnChanges {
     selectItem(item) {
         if (this.isMultiSelect === false) {
             if (this.isBindEnabled && item[this.bindValue] !== undefined && item[this.bindLabel] !== undefined) {
-
                 if (this.isSelectBindValue) {
                     this.selectedItem = item[this.bindValue];
                 } else {
@@ -230,11 +253,19 @@ export class DropdownComponent implements OnInit, OnChanges {
                 }
                 this.setSelectedItemText(item[this.bindLabel]);
 
-            } else {
+            } else if (this.isBindEnabled) {
                 this.selectedItem = item;
                 this.setSelectedItemText(JSON.stringify(item));
+            } else {
+                this.selectedItem = item;
+                this.setSelectedItemText(item);
             }
         } else {
+            if (this.selectedItem === undefined) {
+                this.selectedItem = [];
+                this.isMultiSelectInitialised = true;
+            }
+
             if (this.multiSelectedItems.indexOf(item) < 0) {
                 this.multiSelectedItems.push(item);
                 if (this.isBindEnabled && this.isSelectBindValue) {
@@ -296,7 +327,7 @@ export class DropdownComponent implements OnInit, OnChanges {
             this.customItems = [];
             this.selectedItem = [];
         } else {
-            this.setSelectedItemText(undefined);
+            this.setSelectedItemText(this.placeholder);
         }
         this.onChangeEmit();
 

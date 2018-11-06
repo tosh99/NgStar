@@ -1,12 +1,14 @@
-<div class="dropdown" [style.width]="style['width']" [style.minWidth]="style['min-width']">
+<div class="dropdown" [ngClass]="{'material':theme === 'material'}" [style.width]="style['width']" [style.minWidth]="style['min-width']">
     <!--Button Container-->
-    <div #parentdiv class="dropdown-button" id="app-dropdown-id" (click)="toggleItemDisplay($event)">
+    <div #parentdiv class="dropdown-button" [ngClass]="{'dropdown-open':isItemsDisplayed}"  id="app-dropdown-id" (click)="toggleItemDisplay($event)">
 
         <div class="singleselect-container" *ngIf="!isMultiSelect">
             <div class="placeholder">
-                <header>{{placeholder}}</header>
-                <header (click)="clearSelected()" *ngIf="isClearable && style['deleteiconsrc'] === undefined ">X</header>
-                <img [src]="style['deleteiconsrc']" (click)="clearSelected()" width="20" height="20" *ngIf="isClearable && style['deleteiconsrc'] !== undefined">
+                <header>{{buttonValue}}</header>
+            </div>
+            <div class="deletecontainer" *ngIf="isClearable">
+                <header *ngIf="style['deleteiconsrc'] === undefined" (click)="clearSelected()">X</header>
+                <img *ngIf="style['deleteiconsrc'] !== undefined" [src]="style['deleteiconsrc']" (click)="clearSelected()" width="20" height="20">
             </div>
         </div>
         <div class="multiselect-container" *ngIf="isMultiSelect">
@@ -17,20 +19,19 @@
                 </div>
             </div>
             <div class="placeholder multiselect-placeholder" [ngClass]="{'spread':multiSelectedItems.length > 0}">
-                <header *ngIf="multiSelectedItems.length === 0">{{placeholder}}</header>
+                <header *ngIf="multiSelectedItems.length === 0">{{buttonValue}}</header>
                 <header (click)="clearSelected()" *ngIf="multiSelectedItems.length !== 0 && isClearable && style['deleteiconsrc'] === undefined ">X</header>
                 <img [src]="style['deleteiconsrc']" (click)="clearSelected()" width="20" height="20" *ngIf="multiSelectedItems.length !== 0 && isClearable && style['deleteiconsrc'] !== undefined">
             </div>
         </div>
     </div>
 
-
     <!--Content Container-->
-    <div class="dropdown-content" [style.marginTop.px]="parentdiv.offsetHeight + 3">
+    <div class="dropdown-content" (click)="stopPropagation($event)" *ngIf="isItemsDisplayed" [style.marginTop.px]="parentdiv.offsetHeight">
         <!--List of Items-->
-        <div class="dropdown-items" *ngIf="isItemsDisplayed && !isErrorOccured">
+        <div class="dropdown-items" *ngIf="!isErrorOccured">
             <div class="dropdown-search-box" *ngIf="isSearchable">
-                <input placeholder="Search..." [(ngModel)]="searchText" (keyup.enter)="addMultiItems()">
+                <input placeholder="Search..."  [(ngModel)]="searchText" (keyup.enter)="addMultiItems()">
             </div>
 
             <header class="customItems" *ngIf="customItems.length !== 0">Custom Items</header>
@@ -49,8 +50,8 @@
         </div>
 
 
-        <div class="dropdown-no-item-error" *ngIf="isItemsDisplayed && isErrorOccured">
-            <header>{{errormessage}}</header>
+        <div class="dropdown-no-item-error" *ngIf="isErrorOccured && !isDebugMode">
+            <header>Error: {{errormessage}}</header>
         </div>
 
 
