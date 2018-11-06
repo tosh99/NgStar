@@ -3,8 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {GnxUiModule} from 'projects/gnx-ui/src/lib/gnx-ui.module';
-
-// import {DropdownComponent} from "projects/gnx-ui/src/lib/dropdown/dropdown.component";
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -14,7 +13,7 @@ import {GnxUiModule} from 'projects/gnx-ui/src/lib/gnx-ui.module';
         BrowserModule,
         GnxUiModule
     ],
-    providers: [],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [AppComponent]
 })
 export class AppModule {
