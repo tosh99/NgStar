@@ -10,9 +10,9 @@ export class DropdownComponent implements OnInit, OnChanges {
     // Data Inputs
     @Input() items: Array<any>;
     @Input() selectedItem: any;
+    @Input() placeholder: string;
     @Input() bindLabel: string;
     @Input() bindValue: any;
-    @Input() placeholder: string;
     @Input() isSearchable: boolean;
     @Input() isClearable: boolean;
     @Input() isMultiSelect: boolean;
@@ -25,16 +25,20 @@ export class DropdownComponent implements OnInit, OnChanges {
     // Outputs
     @Output() selectedItemChange = new EventEmitter();
 
-    // Internal Variables
+    // Internal UI Variables
     isItemsDisplayed: boolean;
     searchText: string;
-    customItems: Array<any>;
     isErrorOccured;
     errormessage;
+
+
+    // Internal Data Variables
+    customItems: Array<any>;
     multiSelectedItems: Array<any>;
     isBindEnabled;
     buttonValue;
     isMultiSelectInitialised: boolean;
+
 
     constructor() {
     }
@@ -44,9 +48,6 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('init');
-
-        // Close Dropdown By Default
         this.isItemsDisplayed = false;
         this.isBindEnabled = false;
         this.multiSelectedItems = [];
@@ -109,8 +110,9 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        console.log('changes');
         this.isErrorOccured = false;
+
+        // Do not proceed until Items are Loaded
         if (this.items === undefined) {
             this.showError('Loading Items');
         } else if (this.items.length > 0) {
@@ -276,7 +278,7 @@ export class DropdownComponent implements OnInit, OnChanges {
             }
 
             console.log(item);
-            console.log( this.selectedItem);
+            console.log(this.selectedItem);
         }
 
         this.isItemsDisplayed = false;
@@ -288,7 +290,7 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
 
     addMultiItems() {
-        if (this.isAddTag === true && this.isMultiSelect === true) {
+        if (this.isAddTag === true) {
             if (!this.isBindEnabled) {
                 this.selectedItem.push(this.searchText);
                 this.customItems.push(this.searchText);

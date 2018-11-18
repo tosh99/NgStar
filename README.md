@@ -8,8 +8,8 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 * [Features](##Features)
 * [Installation](##Help)
 * [Usage](##Help)
-* [Themes](##Help)
-* [Reference](##Help)
+* [Themes](#themes)
+* [Reference](#help)
 
 ## Global Features
 * Based on [Flex](https://www.w3schools.com/css/css3_flexbox.asp) Design
@@ -18,7 +18,7 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 * Custom Event Handlers
 * Extensive Error Handling Options
 * Extensive UI Styling Options
-* Custom Themes
+* Pre Built Themes
 
 ## Dropdown Features
 * Autocomplete
@@ -34,7 +34,65 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 `npm i gnx-ui`
 
 ## Usage
-Documentation in progress
+
+Dropdown Input Parameters<br>
+
+######Input : `items` 
+    Input Type   : Array
+    Description  : Items to be displayed for dropdown items
+    Binding Type : Property/Data
+    Notes        : Must be an array; If the value is undefined a Loading Circle would show
+    Example      : Simple List [items] = [1,2,3]
+                   Object List [items] = [{'id':1,'id':2,'id':3}]
+
+######Input : `items` 
+    Input Type   : Array
+    Description  : Items to be displayed for dropdown items
+    Binding Type : Property/Data
+    Notes        : Must be an array; If the value is undefined loading circle would show
+    Example      : Simple List [items] = [1,2,3]
+                   Object List [items] = [{'id':1,'id':2,'id':3}]
+    
+######Input : `items` 
+
+    Input Type  : Array
+    Description :
+    Use Case    : 
+
+Input : `items` 
+
+    Input Type  : Array
+    Description :
+    Use Case    : 
+    
+Input : `items` 
+
+    Input Type  : Array
+    Description :
+    Use Case    : 
+    
+Input : `items` 
+
+    Input Type  : Array
+    Description :
+    Use Case    : 
+    
+    
+Input : `items` 
+
+    Input Type  : Array
+    Description :
+    Use Case    : 
+    
+    
+Input : `items` 
+
+    Input Type  : Array
+    Description :
+    Use Case    :     
+
+
+
 
 ## Themes
 Documentation in progress
