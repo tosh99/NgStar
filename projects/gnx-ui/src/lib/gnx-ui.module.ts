@@ -4,7 +4,7 @@ import {TableComponent} from './table/table.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {TextFilterPipe} from './shared/directives/app-dropdown.pipe';
-import {GnxUiService} from "./gnx-ui.service";
+import {GnxUiService} from './gnx-ui.service';
 
 @NgModule({
     imports: [FormsModule, CommonModule],

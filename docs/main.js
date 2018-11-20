@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"dropdown\" [ngClass]=\"{'material':theme === 'material'}\" [style.width]=\"style['width']\" [style.minWidth]=\"style['min-width']\">\n    <!--Button Container-->\n    <div #parentdiv class=\"dropdown-button\" [ngClass]=\"{'dropdown-open':isItemsDisplayed}\"  id=\"app-dropdown-id\" (click)=\"toggleItemDisplay($event)\">\n\n        <div class=\"singleselect-container\" *ngIf=\"!isMultiSelect\">\n            <div class=\"placeholder\">\n                <header>{{buttonValue}}</header>\n            </div>\n            <div class=\"deletecontainer\" *ngIf=\"isClearable\">\n                <header *ngIf=\"style['deleteiconsrc'] === undefined\" (click)=\"clearSelected()\">X</header>\n                <img *ngIf=\"style['deleteiconsrc'] !== undefined\" [src]=\"style['deleteiconsrc']\" (click)=\"clearSelected()\" width=\"20\" height=\"20\">\n            </div>\n        </div>\n        <div class=\"multiselect-container\" *ngIf=\"isMultiSelect\">\n            <div class=\"multiselect-item-container\" *ngIf=\"multiSelectedItems.length > 0\">\n                <div class=\"multiselect-item\" *ngFor=\"let item of multiSelectedItems\">\n                    <header *ngIf=\"item[bindLabel] === undefined\">{{item}}<span (click)=\"deleteItem(item)\">X</span></header>\n                    <header *ngIf=\"item[bindLabel] !== undefined\">{{item[bindLabel]}}<span (click)=\"deleteItem(item)\">X</span></header>\n                </div>\n            </div>\n            <div class=\"placeholder multiselect-placeholder\" [ngClass]=\"{'spread':multiSelectedItems.length > 0}\">\n                <header *ngIf=\"multiSelectedItems.length === 0\">{{buttonValue}}</header>\n                <header (click)=\"clearSelected()\" *ngIf=\"multiSelectedItems.length !== 0 && isClearable && style['deleteiconsrc'] === undefined \">X</header>\n                <img [src]=\"style['deleteiconsrc']\" (click)=\"clearSelected()\" width=\"20\" height=\"20\" *ngIf=\"multiSelectedItems.length !== 0 && isClearable && style['deleteiconsrc'] !== undefined\">\n            </div>\n        </div>\n    </div>\n\n    <!--Content Container-->\n    <div class=\"dropdown-content\" (click)=\"stopPropagation($event)\" *ngIf=\"isItemsDisplayed\" [style.marginTop.px]=\"parentdiv.offsetHeight\">\n        <!--List of Items-->\n        <div class=\"dropdown-items\" *ngIf=\"!isErrorOccured\">\n            <div class=\"dropdown-search-box\" *ngIf=\"isSearchable\">\n                <input placeholder=\"Search...\"  [(ngModel)]=\"searchText\" (keyup.enter)=\"addMultiItems()\">\n            </div>\n\n            <header class=\"customItems\" *ngIf=\"customItems.length !== 0\">Custom Items</header>\n            <div *ngFor=\"let item of customItems | textFilter:[searchText,bindLabel]\" class=\"dropdown-item\" (click)=\"selectItem(item)\">\n                <header *ngIf=\"bindLabel === undefined\">{{item}}</header>\n                <header *ngIf=\"bindLabel !== undefined\">{{item[bindLabel]}}</header>\n            </div>\n\n            <header class=\"customItems\" *ngIf=\"customItems.length !== 0\">Regular Items</header>\n            <div *ngFor=\"let item of items | textFilter:[searchText,bindLabel]\" class=\"dropdown-item\" (click)=\"selectItem(item)\">\n                <header *ngIf=\"!isBindEnabled\">{{item}}</header>\n                <header *ngIf=\"isBindEnabled && item[bindLabel] !== undefined\">{{item[bindLabel]}}</header>\n                <header *ngIf=\"isBindEnabled && item[bindLabel] === undefined\">{{item | json}}</header>\n            </div>\n\n        </div>\n\n\n        <div class=\"dropdown-no-item-error\" *ngIf=\"isErrorOccured && !isDebugMode\">\n            <header>Error: {{errormessage}}</header>\n        </div>\n\n\n    </div>\n</div>\n"
+module.exports = "<div class=\"dropdown\" [ngClass]=\"{'material':theme === 'material'}\" [style.width]=\"style['width']\" [style.minWidth]=\"style['min-width']\">\r\n    <!--Button Container-->\r\n    <div #parentdiv class=\"dropdown-button\" [ngClass]=\"{'dropdown-open':isItemsDisplayed}\" id=\"app-dropdown-id\" (click)=\"toggleItemDisplay($event)\">\r\n\r\n        <div class=\"singleselect-container\" *ngIf=\"!isMultiSelect\">\r\n            <div class=\"placeholder\">\r\n                <header>{{buttonValue}}</header>\r\n            </div>\r\n            <div class=\"deletecontainer\" (click)=\"clearSelected()\" *ngIf=\"isClearable && selectedItem !== undefined\">\r\n                <header *ngIf=\"style['deleteiconsrc'] === undefined && theme === 'default'\">X</header>\r\n                <img *ngIf=\"style['deleteiconsrc'] !== undefined && theme === 'default'\" [src]=\"style['deleteiconsrc']\" width=\"20\" height=\"20\">\r\n                <i *ngIf=\"theme === 'material'\" class=\"material-icons\">clear</i>\r\n            </div>\r\n        </div>\r\n        <div class=\"multiselect-container\" *ngIf=\"isMultiSelect\">\r\n            <div class=\"multiselect-item-container\" *ngIf=\"multiSelectedItems.length > 0\">\r\n                <div class=\"multiselect-item\" *ngFor=\"let item of multiSelectedItems\">\r\n                    <header *ngIf=\"item[bindLabel] === undefined\">{{item}}<span (click)=\"deleteItem(item)\">X</span></header>\r\n                    <header *ngIf=\"item[bindLabel] !== undefined\">{{item[bindLabel]}}<span (click)=\"deleteItem(item)\">X</span></header>\r\n                </div>\r\n            </div>\r\n            <div class=\"placeholder multiselect-placeholder\" [ngClass]=\"{'spread':multiSelectedItems.length > 0}\" *ngIf=\"multiSelectedItems.length === 0\">\r\n                <header>{{buttonValue}}</header>\r\n            </div>\r\n            <div class=\"deletecontainer\" (click)=\"clearSelected()\" *ngIf=\"isClearable && selectedItem !== undefined && multiSelectedItems.length > 0\">\r\n                <img *ngIf=\"style['deleteiconsrc'] !== undefined && theme === 'default'\" [src]=\"style['deleteiconsrc']\" width=\"20\" height=\"20\">\r\n                <i *ngIf=\"theme === 'material'\" class=\"material-icons\">clear</i>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!--Content Container-->\r\n    <div class=\"dropdown-content\" (click)=\"stopPropagation($event)\" *ngIf=\"isItemsDisplayed\" [style.marginTop.px]=\"parentdiv.offsetHeight\">\r\n        <!--List of Items-->\r\n        <div class=\"dropdown-items\" *ngIf=\"!isErrorOccured\">\r\n            <div class=\"dropdown-search-box\" *ngIf=\"isSearchable\">\r\n                <input placeholder=\"Search...\" [(ngModel)]=\"searchText\" (keyup.enter)=\"addMultiItems()\">\r\n            </div>\r\n\r\n            <header class=\"customItems\" *ngIf=\"customItems.length !== 0\">Custom Items</header>\r\n            <div *ngFor=\"let item of customItems | textFilter:[searchText,bindLabel]\" class=\"dropdown-item\" (click)=\"selectItem(item)\">\r\n                <header *ngIf=\"bindLabel === undefined\">{{item}}</header>\r\n                <header *ngIf=\"bindLabel !== undefined\">{{item[bindLabel]}}</header>\r\n            </div>\r\n\r\n            <header class=\"customItems\" *ngIf=\"customItems.length !== 0\">Regular Items</header>\r\n            <div *ngFor=\"let item of items | textFilter:[searchText,bindLabel]\" class=\"dropdown-item\" (click)=\"selectItem(item)\">\r\n                <header *ngIf=\"!isBindEnabled\">{{item}}</header>\r\n                <header *ngIf=\"isBindEnabled && item[bindLabel] !== undefined\">{{item[bindLabel]}}</header>\r\n                <header *ngIf=\"isBindEnabled && item[bindLabel] === undefined\">{{item | json}}</header>\r\n            </div>\r\n\r\n        </div>\r\n\r\n\r\n        <div class=\"dropdown-no-item-error\" *ngIf=\"isErrorOccured && !isDebugMode\">\r\n            <header>{{errormessage}}</header>\r\n        </div>\r\n\r\n\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -18,7 +18,7 @@ module.exports = "<div class=\"dropdown\" [ngClass]=\"{'material':theme === 'mat
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".dropdown {\n  display: flex;\n  min-height: 36px;\n  min-width: 100px;\n  width: 100%;\n  position: relative;\n  float: left;\n}\n.dropdown .dropdown-button {\n  display: flex;\n  align-items: center;\n  width: 100%;\n}\n.dropdown .dropdown-button .placeholder {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  word-break: break-word;\n}\n.dropdown .dropdown-button .deletecontainer {\n  display: flex;\n  align-items: center;\n}\n.dropdown .dropdown-button .singleselect-container {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.dropdown .dropdown-button .multiselect-container {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n}\n.dropdown .dropdown-button .multiselect-container .placeholder {\n  width: unset;\n  justify-content: center;\n}\n.dropdown .dropdown-button .multiselect-container .placeholder img {\n  margin: 0;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container {\n  width: 100%;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item {\n  float: left;\n  word-break: break-word;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1px 6px 2px 6px;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item header span {\n  margin-left: 10px;\n}\n.dropdown .dropdown-button .multiselect-container .spread {\n  width: 30px;\n}\n.dropdown .dropdown-content {\n  width: 100%;\n  margin-top: 36px;\n  position: absolute;\n  font-size: 14px;\n}\n.dropdown .dropdown-content .dropdown-items {\n  width: inherit;\n  max-height: 250px;\n  overflow-y: auto;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-search-box {\n  display: flex;\n  justify-content: center;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-search-box input {\n  width: 100%;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-search-box input:focus {\n  outline: none;\n}\n.dropdown .dropdown-content .dropdown-items .customItems {\n  font-weight: 700;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-item {\n  cursor: pointer;\n  word-break: break-word;\n  transition: 0.5s;\n}\n.dropdown .dropdown-content .dropdown-no-item-error {\n  height: 100px;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.material {\n  min-height: 40px;\n  /* Handle */\n  border-bottom: 1px solid #c8c8c8;\n}\n.material ::-webkit-scrollbar {\n  width: 5px;\n}\n.material ::-webkit-scrollbar-thumb {\n  -webkit-border-radius: 10px;\n  background: #646464;\n}\n.material ::-webkit-scrollbar-thumb:window-inactive {\n  background: rgba(255, 0, 0, 0.4);\n}\n.material .dropdown-button {\n  padding: 5px 10px 5px 10px;\n}\n.material .dropdown-button .placeholder {\n  width: 85%;\n}\n.material .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item {\n  border: 1px solid #c8c8c8;\n  margin: 5px 5px 0 0;\n  border-radius: 4px;\n}\n.material .dropdown-open {\n  border-bottom: 1px solid darkblue;\n}\n.material .dropdown-content {\n  box-shadow: 0 1px 2px 1px #c8c8c8;\n}\n.material .dropdown-content .dropdown-items .dropdown-search-box {\n  padding: 10px 10px 5px 10px;\n}\n.material .dropdown-content .dropdown-items .dropdown-search-box input {\n  border: none;\n  padding: 5px;\n  border-bottom: 1px solid #c8c8c8;\n}\n.material .dropdown-content .dropdown-items .dropdown-item {\n  display: flex;\n  align-items: center;\n  padding: 14px 10px 14px 10px;\n}\n.material .dropdown-content .dropdown-items .dropdown-item:hover {\n  background-color: #f0f0f0;\n}\n.material .dropdown-content .dropdown-no-item-error {\n  display: flex;\n  justify-content: center;\n  font-size: 13px;\n  color: #b4b4b4;\n}\n.material .dropdown-content .dropdown-no-item-error header {\n  width: 90%;\n  text-align: center;\n}\n"
+module.exports = "/* fallback */\n@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: url(https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');\n}\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n}\n.dropdown {\n  display: flex;\n  min-height: 36px;\n  min-width: 100px;\n  width: 100%;\n  position: relative;\n  float: left;\n}\n.dropdown .dropdown-button {\n  display: flex;\n  align-items: center;\n  width: 100%;\n}\n.dropdown .dropdown-button .placeholder {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  word-break: break-word;\n}\n.dropdown .dropdown-button .deletecontainer {\n  display: flex;\n  align-items: center;\n}\n.dropdown .dropdown-button .singleselect-container {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.dropdown .dropdown-button .multiselect-container {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n}\n.dropdown .dropdown-button .multiselect-container .placeholder {\n  width: unset;\n  justify-content: center;\n}\n.dropdown .dropdown-button .multiselect-container .placeholder img {\n  margin: 0;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container {\n  width: 100%;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item {\n  float: left;\n  word-break: break-word;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 1px 6px 2px 6px;\n}\n.dropdown .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item header span {\n  margin-left: 10px;\n}\n.dropdown .dropdown-button .multiselect-container .spread {\n  width: 30px;\n}\n.dropdown .dropdown-content {\n  width: 100%;\n  margin-top: 36px;\n  position: absolute;\n  font-size: 14px;\n  z-index: 1;\n}\n.dropdown .dropdown-content .dropdown-items {\n  width: inherit;\n  max-height: 250px;\n  overflow-y: auto;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-search-box {\n  display: flex;\n  justify-content: center;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-search-box input {\n  width: 100%;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-search-box input:focus {\n  outline: none;\n}\n.dropdown .dropdown-content .dropdown-items .customItems {\n  font-weight: 700;\n}\n.dropdown .dropdown-content .dropdown-items .dropdown-item {\n  cursor: pointer;\n  word-break: break-word;\n  transition: 0.5s;\n}\n.dropdown .dropdown-content .dropdown-no-item-error {\n  height: 100px;\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.material {\n  min-height: 40px;\n}\n.material .material-icons {\n  font-size: 18px;\n  cursor: pointer;\n}\n.material ::-webkit-scrollbar {\n  width: 5px;\n}\n.material ::-webkit-scrollbar-thumb {\n  -webkit-border-radius: 10px;\n  background: #646464;\n}\n.material ::-webkit-scrollbar-thumb:window-inactive {\n  background: rgba(255, 0, 0, 0.4);\n}\n.material .dropdown-button {\n  padding: 5px 10px 5px 10px;\n  border-bottom: 1px solid #c8c8c8;\n}\n.material .dropdown-button .placeholder {\n  width: 85%;\n}\n.material .dropdown-button .multiselect-container .multiselect-item-container .multiselect-item {\n  border: 1px solid #c8c8c8;\n  margin: 5px 5px 0 0;\n  border-radius: 4px;\n}\n.material .dropdown-open {\n  border-bottom: 1px solid darkblue;\n}\n.material .dropdown-content {\n  box-shadow: 0 1px 2px 1px #c8c8c8;\n  background-color: white;\n}\n.material .dropdown-content .dropdown-items .dropdown-search-box {\n  padding: 10px 10px 5px 10px;\n}\n.material .dropdown-content .dropdown-items .dropdown-search-box input {\n  border: none;\n  padding: 5px;\n  border-bottom: 1px solid #c8c8c8;\n}\n.material .dropdown-content .dropdown-items .customItems {\n  margin: 5px 10px 5px 10px;\n  padding-bottom: 5px;\n  border-bottom: 1px solid #c8c8c8;\n}\n.material .dropdown-content .dropdown-items .dropdown-item {\n  display: flex;\n  align-items: center;\n  padding: 14px 10px 14px 10px;\n}\n.material .dropdown-content .dropdown-items .dropdown-item:hover {\n  background-color: #f0f0f0;\n}\n.material .dropdown-content .dropdown-no-item-error {\n  display: flex;\n  justify-content: center;\n  font-size: 13px;\n  color: #b4b4b4;\n}\n.material .dropdown-content .dropdown-no-item-error header {\n  width: 90%;\n  text-align: center;\n}\n"
 
 /***/ }),
 
@@ -47,18 +47,16 @@ var DropdownComponent = /** @class */ (function () {
     function DropdownComponent() {
         // Outputs
         this.selectedItemChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.isItemsDisplayed = false;
+        this.multiSelectedItems = [];
+        this.customItems = [];
+        this.isMultiSelectInitialised = false;
+        this.isBindEnabled = false;
     }
     DropdownComponent.prototype.clickedOutside = function ($event) {
         this.isItemsDisplayed = false;
     };
     DropdownComponent.prototype.ngOnInit = function () {
-        console.log('init');
-        // Close Dropdown By Default
-        this.isItemsDisplayed = false;
-        this.isBindEnabled = false;
-        this.multiSelectedItems = [];
-        this.customItems = [];
-        this.isMultiSelectInitialised = false;
         if (this.items === undefined) {
             this.items = [];
         }
@@ -98,10 +96,11 @@ var DropdownComponent = /** @class */ (function () {
         }
         // Set PlaceHolder
         this.setSelectedItemText(this.buttonValue);
+        console.log(this.isBindEnabled);
     };
     DropdownComponent.prototype.ngOnChanges = function () {
-        console.log('changes');
         this.isErrorOccured = false;
+        // Do not proceed until Items are Loaded
         if (this.items === undefined) {
             this.showError('Loading Items');
         }
@@ -273,7 +272,10 @@ var DropdownComponent = /** @class */ (function () {
         this.selectedItemChange.emit(this.selectedItem);
     };
     DropdownComponent.prototype.addMultiItems = function () {
-        if (this.isAddTag === true && this.isMultiSelect === true) {
+        if (this.isAddTag === true) {
+            if (this.selectedItem === undefined) {
+                this.selectedItem = [];
+            }
             if (!this.isBindEnabled) {
                 this.selectedItem.push(this.searchText);
                 this.customItems.push(this.searchText);
@@ -315,6 +317,7 @@ var DropdownComponent = /** @class */ (function () {
             this.selectedItem = [];
         }
         else {
+            this.selectedItem = undefined;
             this.setSelectedItemText(this.placeholder);
         }
         this.onChangeEmit();
@@ -330,15 +333,15 @@ var DropdownComponent = /** @class */ (function () {
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", String)
+    ], DropdownComponent.prototype, "placeholder", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
     ], DropdownComponent.prototype, "bindLabel", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
     ], DropdownComponent.prototype, "bindValue", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], DropdownComponent.prototype, "placeholder", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Boolean)
@@ -548,7 +551,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  table works!\n</p>\n"
+module.exports = "<p>\r\n  table works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -623,7 +626,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"margin: 20px\">\n    <gnx-ui-dropdown\n        [placeholder]=\"'Placeholder'\"\n        [items]=\"items\"\n        [style]=\"style\"\n    ></gnx-ui-dropdown>\n    <gnx-ui-dropdown\n        [items]=\"objectitems\"\n        [bindLabel]=\"'name'\"\n        [bindValue]=\"'id'\"\n        [isMultiSelect]=\"true\"\n        [isSearchable]=\"false\"\n        [isSelectBindValue]=\"false\"\n        [placeholder]=\"'Placeholder'\"\n        [style]=\"style\"\n        (selectedItemChange)=\"hello()\"\n    ></gnx-ui-dropdown>\n</div>\n"
+module.exports = "<div class=\"app\">\r\n    <div class=\"header\">\r\n        <h2>Dropdown Examples</h2>\r\n    </div>\r\n\r\n\r\n    <div class=\"dropdown-examples\">\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with a Simple Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=\"['Mozarella', 'Cottage', 'Vintage']\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"['Mozarella', 'Cottage', 'Vintage']\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array with MultiSelect</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"</code>\r\n                <code class=\"padded\">[isMultiSelect]=\"true\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\"\r\n                [isMultiSelect]=\"true\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array with MultiSelect and Tag Addition</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"</code>\r\n                <code class=\"padded\">[isMultiSelect]=\"true\"</code>\r\n                <code class=\"padded\">[isAddTag]=\"true\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\"\r\n                [isMultiSelect]=\"true\"\r\n                [isAddTag]=\"true\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -634,7 +637,7 @@ module.exports = "<div style=\"margin: 20px\">\n    <gnx-ui-dropdown\n        [p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".app {\n  width: 96%;\n  min-height: 100vh;\n  padding: 2%;\n  background-color: #fafafa;\n}\n.app .header {\n  margin-bottom: 20px;\n}\n.app .dropdown-examples {\n  display: flex;\n  flex-wrap: wrap;\n  width: 100%;\n  margin: auto;\n  padding-top: 20px;\n  background-color: white;\n  box-shadow: 1px 1px 1px 0 #c8c8c8;\n  min-height: 200px;\n}\n.app .dropdown-examples .dropdown {\n  display: flex;\n  flex-direction: column;\n  width: 40%;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-bottom: 30px;\n}\n.app .dropdown-examples .dropdown header {\n  font-size: 14px;\n  margin-bottom: 10px;\n  font-weight: 700;\n}\n.app .dropdown-examples .dropdown .codeparams {\n  display: flex;\n  flex-direction: column;\n  min-height: 130px;\n}\n.app .dropdown-examples .dropdown .codeparams .padded {\n  padding-left: 20px;\n}\n"
 
 /***/ }),
 
@@ -658,28 +661,16 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title = 'gnx-ui-app';
-        this.items = [];
-        this.objectitems = [];
-        this.selectedItem = [];
-        this.selectedObjectItem = [];
-        this.style = {
-            'width': '100px',
-            'min-width': '200px',
-            'deleteiconsrc': 'https://d30y9cdsu7xlg0.cloudfront.net/png/55049-200.png'
-        };
+        this.cd = '<gnx-ui-dropdown\n' +
+            '                [placeholder]="\'Select Cheese\'"\n' +
+            '                [items]="[\'Mozarella\', \'Cottage\', \'Vintage\']">\n' +
+            '            </gnx-ui-dropdown>';
     }
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
         setTimeout(function () {
-            _this.objectitems = [{ 'id': 0, 'name': 'Item1' }, { 'id': 1, 'name': 'Item2' }];
-            _this.selectedObjectItem = [_this.objectitems[0]];
-            _this.items = ['Item1', 'Item Long Text', 'Item Very Long Text', 'Item Very Very Extra Long Text', 'Sample 1', 'Sample 2', 'Sample 3'];
-            _this.selectedItem = [_this.items[0]];
-        }, 200);
+        }, 3000);
     };
     AppComponent.prototype.hello = function () {
-        console.log(this.selectedItem);
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -804,7 +795,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\GTX\PycharmProjects\Open Source\gnx-ui-app\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\ac14311\Projects\PythonApp\NgStar\src\main.ts */"./src/main.ts");
 
 
 /***/ })

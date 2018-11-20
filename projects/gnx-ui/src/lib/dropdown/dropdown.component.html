@@ -1,6 +1,6 @@
 <div class="dropdown" [ngClass]="{'material':theme === 'material'}" [style.width]="style['width']" [style.minWidth]="style['min-width']">
     <!--Button Container-->
-    <div #parentdiv class="dropdown-button" [ngClass]="{'dropdown-open':isItemsDisplayed}"  id="app-dropdown-id" (click)="toggleItemDisplay($event)">
+    <div #parentdiv class="dropdown-button" [ngClass]="{'dropdown-open':isItemsDisplayed}" id="app-dropdown-id" (click)="toggleItemDisplay($event)">
 
         <div class="singleselect-container" *ngIf="!isMultiSelect">
             <div class="placeholder">
@@ -34,7 +34,7 @@
         <!--List of Items-->
         <div class="dropdown-items" *ngIf="!isErrorOccured">
             <div class="dropdown-search-box" *ngIf="isSearchable">
-                <input placeholder="Search..."  [(ngModel)]="searchText" (keyup.enter)="addMultiItems()">
+                <input placeholder="Search..." [(ngModel)]="searchText" (keyup.enter)="addMultiItems()">
             </div>
 
             <header class="customItems" *ngIf="customItems.length !== 0">Custom Items</header>

@@ -41,6 +41,11 @@ export class DropdownComponent implements OnInit, OnChanges {
 
 
     constructor() {
+        this.isItemsDisplayed = false;
+        this.multiSelectedItems = [];
+        this.customItems = [];
+        this.isMultiSelectInitialised = false;
+        this.isBindEnabled = false;
     }
 
     @HostListener('document:click', ['$event']) clickedOutside($event) {
@@ -48,11 +53,6 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.isItemsDisplayed = false;
-        this.isBindEnabled = false;
-        this.multiSelectedItems = [];
-        this.customItems = [];
-        this.isMultiSelectInitialised = false;
 
 
         if (this.items === undefined) {
@@ -105,6 +105,7 @@ export class DropdownComponent implements OnInit, OnChanges {
 
         // Set PlaceHolder
         this.setSelectedItemText(this.buttonValue);
+        console.log(this.isBindEnabled);
 
 
     }
@@ -276,9 +277,6 @@ export class DropdownComponent implements OnInit, OnChanges {
                     this.selectedItem.push(item);
                 }
             }
-
-            console.log(item);
-            console.log(this.selectedItem);
         }
 
         this.isItemsDisplayed = false;
@@ -291,6 +289,10 @@ export class DropdownComponent implements OnInit, OnChanges {
 
     addMultiItems() {
         if (this.isAddTag === true) {
+            if (this.selectedItem === undefined) {
+                this.selectedItem = [];
+            }
+
             if (!this.isBindEnabled) {
                 this.selectedItem.push(this.searchText);
                 this.customItems.push(this.searchText);
@@ -308,6 +310,7 @@ export class DropdownComponent implements OnInit, OnChanges {
                 } else {
                     this.selectedItem.push(temp_dict);
                 }
+
                 this.customItems.push(temp_dict);
                 this.multiSelectedItems.push(temp_dict);
             }

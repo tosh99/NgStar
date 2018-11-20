@@ -1,0 +1,83 @@
+<div class="app">
+    <div class="header">
+        <h2>Dropdown Examples</h2>
+    </div>
+
+
+    <div class="dropdown-examples">
+        <div class="dropdown">
+            <header>A Simple Dropdown with a Simple Array</header>
+            <div class="codeparams">
+                <code> &lt;gnx-ui-dropdown</code>
+                <code class="padded">[placeholder]="'Select Cheese'"</code>
+                <code class="padded">[items]="['Mozarella', 'Cottage', 'Vintage']"></code>
+                <code>&lt;/gnx-ui-dropdown></code>
+            </div>
+            <gnx-ui-dropdown
+                [placeholder]="'Select Cheese'"
+                [items]="['Mozarella', 'Cottage', 'Vintage']">
+            </gnx-ui-dropdown>
+        </div>
+
+        <div class="dropdown">
+            <header>A Simple Dropdown with an Object Array</header>
+            <div class="codeparams">
+                <code> &lt;gnx-ui-dropdown</code>
+                <code class="padded">[placeholder]="'Select Cheese'"</code>
+                <code class="padded">[items]=[objectlist]</code>
+                <code class="padded">[bindLabel]="'name'"</code>
+                <code class="padded">[bindValue]="'id'"></code>
+                <code>&lt;/gnx-ui-dropdown></code>
+            </div>
+            <gnx-ui-dropdown
+                [placeholder]="'Select Cheese'"
+                [items]="[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]"
+                [bindLabel]="'name'"
+                [bindValue]="'id'">
+            </gnx-ui-dropdown>
+        </div>
+
+        <div class="dropdown">
+            <header>A Simple Dropdown with an Object Array with MultiSelect</header>
+            <div class="codeparams">
+                <code> &lt;gnx-ui-dropdown</code>
+                <code class="padded">[placeholder]="'Select Cheese'"</code>
+                <code class="padded">[items]=[objectlist]</code>
+                <code class="padded">[bindLabel]="'name'"</code>
+                <code class="padded">[bindValue]="'id'"</code>
+                <code class="padded">[isMultiSelect]="true"></code>
+                <code>&lt;/gnx-ui-dropdown></code>
+            </div>
+            <gnx-ui-dropdown
+                [placeholder]="'Select Cheese'"
+                [items]="[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]"
+                [bindLabel]="'name'"
+                [bindValue]="'id'"
+                [isMultiSelect]="true">
+            </gnx-ui-dropdown>
+        </div>
+        <div class="dropdown">
+            <header>A Simple Dropdown with an Object Array with MultiSelect and Tag Addition</header>
+            <div class="codeparams">
+                <code> &lt;gnx-ui-dropdown</code>
+                <code class="padded">[placeholder]="'Select Cheese'"</code>
+                <code class="padded">[items]=[objectlist]</code>
+                <code class="padded">[bindLabel]="'name'"</code>
+                <code class="padded">[bindValue]="'id'"</code>
+                <code class="padded">[isMultiSelect]="true"</code>
+                <code class="padded">[isAddTag]="true"></code>
+                <code>&lt;/gnx-ui-dropdown></code>
+            </div>
+            <gnx-ui-dropdown
+                [placeholder]="'Select Cheese'"
+                [items]="[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]"
+                [bindLabel]="'name'"
+                [bindValue]="'id'"
+                [isMultiSelect]="true"
+                [isAddTag]="true">
+            </gnx-ui-dropdown>
+        </div>
+    </div>
+
+
+</div>

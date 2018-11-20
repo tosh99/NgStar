@@ -2,7 +2,7 @@
 
 # GNX UI 
 The module is built using [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
-<br>For a demo of the module click [here](https://tosh99.github.io/GNX-UI/)
+<br>For a demo of the module click [here](https://tosh99.github.io/NgStar/)
 
 ## Table of Contents
 * [Features](##Features)
@@ -34,64 +34,7 @@ The module is built using [Angular CLI](https://github.com/angular/angular-cli) 
 `npm i gnx-ui`
 
 ## Usage
-
-Dropdown Input Parameters<br>
-
-######Input : `items` 
-    Input Type   : Array
-    Description  : Items to be displayed for dropdown items
-    Binding Type : Property/Data
-    Notes        : Must be an array; If the value is undefined a Loading Circle would show
-    Example      : Simple List [items] = [1,2,3]
-                   Object List [items] = [{'id':1,'id':2,'id':3}]
-
-######Input : `items` 
-    Input Type   : Array
-    Description  : Items to be displayed for dropdown items
-    Binding Type : Property/Data
-    Notes        : Must be an array; If the value is undefined loading circle would show
-    Example      : Simple List [items] = [1,2,3]
-                   Object List [items] = [{'id':1,'id':2,'id':3}]
-    
-######Input : `items` 
-
-    Input Type  : Array
-    Description :
-    Use Case    : 
-
-Input : `items` 
-
-    Input Type  : Array
-    Description :
-    Use Case    : 
-    
-Input : `items` 
-
-    Input Type  : Array
-    Description :
-    Use Case    : 
-    
-Input : `items` 
-
-    Input Type  : Array
-    Description :
-    Use Case    : 
-    
-    
-Input : `items` 
-
-    Input Type  : Array
-    Description :
-    Use Case    : 
-    
-    
-Input : `items` 
-
-    Input Type  : Array
-    Description :
-    Use Case    :     
-
-
+For usage guidelines click [here](https://tosh99.github.io/NgStar/)
 
 
 ## Themes

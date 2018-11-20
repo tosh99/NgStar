@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* You can add global styles to this file, and also import other style files */\nhtml,\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: Sans-Serif;\n}\n"
+module.exports = "/* You can add global styles to this file, and also import other style files */\nhtml,\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: Sans-Serif;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 0;\n}\n"
 
 /***/ }),
 
@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\GTX\PycharmProjects\Open Source\gnx-ui-app\src\styles.less */"./src/styles.less");
+module.exports = __webpack_require__(/*! C:\Users\ac14311\Projects\PythonApp\NgStar\src\styles.less */"./src/styles.less");
 
 
 /***/ })
