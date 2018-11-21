@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ac14311\Projects\PythonApp\NgStar\src\styles.less */"./src/styles.less");
+module.exports = __webpack_require__(/*! C:\Users\GTX\PycharmProjects\Open Source\gnx-ui-app\src\styles.less */"./src/styles.less");
 
 
 /***/ })

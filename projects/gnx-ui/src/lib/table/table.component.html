@@ -11,12 +11,27 @@
         </div>
     </div>
 
-    <div class="table-row table-data" *ngFor="let row of tableData" (click)="onButtonClick('row',row)">
+    <div class="table-row table-data" *ngFor="let row of tableData">
         <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']" [style.width]="column['columnwidth']">
-            <header *ngIf="column['type'] === 'text'">{{row[column['columnkeybinding']]}}</header>
-            <input [title]="row[column['columnkeybinding']]" type="checkbox" *ngIf="column['type'] === 'checkbox'" [(ngModel)]="row[column['columnkeybinding']]">
-            <input [title]="row[column['columnkeybinding']]" type="radio" *ngIf="column['type'] === 'radio'" [(ngModel)]="row[column['columnkeybinding']]">
-            <div class="button" (click)="onButtonClick(column['columnname'], row)" *ngIf="column['type'] === 'button'">{{column['buttonname']}}</div>
+            <div class="text" *ngIf="column['type'] === 'text' && column['isclickable'] === true" (click)="onButtonClick(column['columnkeybinding'],row)">
+                <header>{{row[column['columnkeybinding']]}}</header>
+            </div>
+            <div class="text" *ngIf="column['type'] === 'text' && column['isclickable'] === false">
+                <header>{{row[column['columnkeybinding']]}}</header>
+            </div>
+            <div class="checkbox" *ngIf="column['type'] === 'checkbox'">
+                <input [title]="row[column['columnkeybinding']]"
+                       (change)="onButtonClick(column['columnkeybinding'], row)"
+                       type="checkbox"
+                       [checked]="row[column['columnkeybinding']]">
+            </div>
+            <div class="checkbox" *ngIf="column['type'] === 'checkbox'">
+                <input [title]="row[column['columnkeybinding']]"
+                       type="radio" *ngIf="column['type'] === 'radio'"
+                       [(ngModel)]="row[column['columnkeybinding']]">
+            </div>
+
+            <div class="button" (click)="onButtonClick(column['columnkeybinding'], row)" *ngIf="column['type'] === 'button'">{{column['buttonname']}}</div>
         </div>
     </div>
 

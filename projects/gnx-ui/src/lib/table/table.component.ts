@@ -38,7 +38,10 @@ export class TableComponent implements OnInit, OnChanges {
         if (this.tableConfig === undefined) {
             this.tableConfig = {
                 'tableColumnConfig': [],
-                'style': {}
+                'style': {},
+                'generalConfig': {
+                    'isRowClickable': false
+                }
             };
         } else {
             if (this.tableConfig['tableColumnConfig'] === undefined) {
@@ -59,6 +62,6 @@ export class TableComponent implements OnInit, OnChanges {
     onButtonClick(type, row) {
         event.preventDefault();
         event.stopPropagation();
-        this.dataChange.emit({'type': type, 'data': row});
+        this.dataChange.emit({'column': type, 'data': row});
     }
 }

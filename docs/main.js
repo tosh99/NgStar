@@ -96,7 +96,6 @@ var DropdownComponent = /** @class */ (function () {
         }
         // Set PlaceHolder
         this.setSelectedItemText(this.buttonValue);
-        console.log(this.isBindEnabled);
     };
     DropdownComponent.prototype.ngOnChanges = function () {
         this.isErrorOccured = false;
@@ -164,7 +163,6 @@ var DropdownComponent = /** @class */ (function () {
                                     var val = _c[_b];
                                     for (var _d = 0, _e = this.selectedItem; _d < _e.length; _d++) {
                                         var valsel = _e[_d];
-                                        console.log(valsel);
                                         var temp = void 0;
                                         if (this.isBindEnabled && this.isSelectBindValue) {
                                             temp = val[this.bindValue];
@@ -172,7 +170,6 @@ var DropdownComponent = /** @class */ (function () {
                                         else {
                                             temp = val;
                                         }
-                                        console.log(temp);
                                         if (temp === valsel && !this.isMultiSelectInitialised) {
                                             isfound = true;
                                             this.multiSelectedItems.push(val);
@@ -533,17 +530,6 @@ var TextFilterPipe = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./projects/gnx-ui/src/lib/table/table.component.css":
-/*!***********************************************************!*\
-  !*** ./projects/gnx-ui/src/lib/table/table.component.less ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
 /***/ "./projects/gnx-ui/src/lib/table/table.component.html":
 /*!************************************************************!*\
   !*** ./projects/gnx-ui/src/lib/table/table.component.html ***!
@@ -551,7 +537,18 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  table works!\r\n</p>\r\n"
+module.exports = "<div class=\"table\">\r\n\r\n    <div class=\"table-row table-error\" *ngIf=\"internal_error_message && isDebugMode\">\r\n        <header>{{internal_error_message}}</header>\r\n    </div>\r\n\r\n\r\n    <div class=\"table-row table-header\" [style.backgroundColor]=\"tableConfig['style']['headerbackgroundcolor']\">\r\n        <div class=\"table-column\" *ngFor=\"let column of tableConfig['tableColumnConfig']\" [style.width]=\"column['columnwidth']\">\r\n            <header>{{column['columnname']}}</header>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"table-row table-data\" *ngFor=\"let row of tableData\">\r\n        <div class=\"table-column\" *ngFor=\"let column of tableConfig['tableColumnConfig']\" [style.width]=\"column['columnwidth']\">\r\n            <div class=\"text\" *ngIf=\"column['type'] === 'text' && column['isclickable'] === true\" (click)=\"onButtonClick(column['columnkeybinding'],row)\">\r\n                <header>{{row[column['columnkeybinding']]}}</header>\r\n            </div>\r\n            <div class=\"text\" *ngIf=\"column['type'] === 'text' && column['isclickable'] === false\">\r\n                <header>{{row[column['columnkeybinding']]}}</header>\r\n            </div>\r\n            <div class=\"checkbox\" *ngIf=\"column['type'] === 'checkbox'\">\r\n                <input [title]=\"row[column['columnkeybinding']]\"\r\n                       (change)=\"onButtonClick(column['columnkeybinding'], row)\"\r\n                       type=\"checkbox\"\r\n                       [checked]=\"row[column['columnkeybinding']]\">\r\n            </div>\r\n            <div class=\"checkbox\" *ngIf=\"column['type'] === 'checkbox'\">\r\n                <input [title]=\"row[column['columnkeybinding']]\"\r\n                       type=\"radio\" *ngIf=\"column['type'] === 'radio'\"\r\n                       [(ngModel)]=\"row[column['columnkeybinding']]\">\r\n            </div>\r\n\r\n            <div class=\"button\" (click)=\"onButtonClick(column['columnkeybinding'], row)\" *ngIf=\"column['type'] === 'button'\">{{column['buttonname']}}</div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"table-row table-error\" *ngIf=\"!isLoading && errorMessage\">\r\n        <header>{{errorMessage}}</header>\r\n    </div>\r\n\r\n    <div class=\"table-row table-error\" *ngIf=\"isLoading\">\r\n        <header>Loading</header>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./projects/gnx-ui/src/lib/table/table.component.less":
+/*!************************************************************!*\
+  !*** ./projects/gnx-ui/src/lib/table/table.component.less ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table {\n  width: 100%;\n}\n.table .table-row {\n  display: flex;\n  align-items: center;\n  min-height: 44px;\n}\n.table .table-column {\n  display: flex;\n  align-items: center;\n  min-height: 44px;\n  padding-left: 10px;\n  padding-right: 10px;\n}\n.table .table-error {\n  min-height: 200px;\n  justify-content: center;\n}\n.table .table-header {\n  background-color: #DAE0E0;\n}\n.table .table-data {\n  padding-top: 5px;\n  padding-bottom: 5px;\n  border-bottom: 1px solid black;\n}\n.table .table-data .text {\n  display: flex;\n  align-items: center;\n  min-height: 44px;\n  width: 100%;\n}\n.table .table-data .button {\n  display: flex;\n  padding: 10px;\n  border-radius: 4px;\n  border: 1px solid #c8c8c8;\n  background-color: white;\n  cursor: pointer;\n}\n.table .table-data .button:hover {\n  opacity: 0.7;\n}\n"
 
 /***/ }),
 
@@ -578,9 +575,67 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var TableComponent = /** @class */ (function () {
     function TableComponent() {
+        this.dataChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        if (this.isDebugMode === undefined) {
+            this.isDebugMode = false;
+        }
+        if (this.isLoading === undefined) {
+            this.isLoading = false;
+        }
     }
     TableComponent.prototype.ngOnInit = function () {
     };
+    TableComponent.prototype.ngOnChanges = function () {
+        if (this.tableConfig === undefined) {
+            this.tableConfig = {
+                'tableColumnConfig': [],
+                'style': {},
+                'generalConfig': {
+                    'isRowClickable': false
+                }
+            };
+        }
+        else {
+            if (this.tableConfig['tableColumnConfig'] === undefined) {
+                this.tableConfig['tableColumnConfig'] = [];
+            }
+            if (this.tableConfig['style'] === undefined) {
+                this.tableConfig['style'] = [];
+            }
+        }
+    };
+    TableComponent.prototype.logError = function (error) {
+        this.internal_error_message = error;
+    };
+    TableComponent.prototype.onButtonClick = function (type, row) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.dataChange.emit({ 'column': type, 'data': row });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], TableComponent.prototype, "tableConfig", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], TableComponent.prototype, "tableData", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], TableComponent.prototype, "isDebugMode", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], TableComponent.prototype, "isLoading", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], TableComponent.prototype, "errorMessage", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], TableComponent.prototype, "dataChange", void 0);
     TableComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'gnx-ui-table',
@@ -626,7 +681,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app\">\r\n    <div class=\"header\">\r\n        <h2>Dropdown Examples</h2>\r\n    </div>\r\n\r\n\r\n    <div class=\"examples\">\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with a Simple Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=\"['Mozarella', 'Cottage', 'Vintage']\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"['Mozarella', 'Cottage', 'Vintage']\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array with MultiSelect</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"</code>\r\n                <code class=\"padded\">[isMultiSelect]=\"true\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\"\r\n                [isMultiSelect]=\"true\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array with MultiSelect and Tag Addition</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"</code>\r\n                <code class=\"padded\">[isMultiSelect]=\"true\"</code>\r\n                <code class=\"padded\">[isAddTag]=\"true\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\"\r\n                [isMultiSelect]=\"true\"\r\n                [isAddTag]=\"true\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"app\">\r\n    <div class=\"header\">\r\n        <h2>Dropdown Examples</h2>\r\n    </div>\r\n\r\n    <div class=\"examples\">\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with a Simple Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=\"['Mozarella', 'Cottage', 'Vintage']\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"['Mozarella', 'Cottage', 'Vintage']\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array with MultiSelect</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"</code>\r\n                <code class=\"padded\">[isMultiSelect]=\"true\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\"\r\n                [isMultiSelect]=\"true\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n        <div class=\"dropdown\">\r\n            <header>A Simple Dropdown with an Object Array with MultiSelect and Tag Addition</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-dropdown</code>\r\n                <code class=\"padded\">[placeholder]=\"'Select Cheese'\"</code>\r\n                <code class=\"padded\">[items]=[objectlist]</code>\r\n                <code class=\"padded\">[bindLabel]=\"'name'\"</code>\r\n                <code class=\"padded\">[bindValue]=\"'id'\"</code>\r\n                <code class=\"padded\">[isMultiSelect]=\"true\"</code>\r\n                <code class=\"padded\">[isAddTag]=\"true\"></code>\r\n                <code>&lt;/gnx-ui-dropdown></code>\r\n            </div>\r\n            <gnx-ui-dropdown\r\n                [placeholder]=\"'Select Cheese'\"\r\n                [items]=\"[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]\"\r\n                [bindLabel]=\"'name'\"\r\n                [bindValue]=\"'id'\"\r\n                [isMultiSelect]=\"true\"\r\n                [isAddTag]=\"true\">\r\n            </gnx-ui-dropdown>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"header\">\r\n        <h2>Table Examples</h2>\r\n    </div>\r\n\r\n\r\n    <div class=\"examples\">\r\n        <div class=\"table\">\r\n            <header>A Simple Table with a Simple Array</header>\r\n            <div class=\"codeparams\">\r\n                <code> &lt;gnx-ui-table </code>\r\n                <code class=\"padded\">[tableConfig]=\"tableConfig\"</code>\r\n                <code class=\"padded\">[errorMessage]=\"err\"</code>\r\n                <code class=\"padded\">[tableData]=\"tableData\"></code>\r\n                <code>&lt;/gnx-ui-table></code>\r\n                <code><b>Table Config : </b>{{tableConfig | json}}</code>\r\n                <code><b>Table Data : </b>{{tableData | json}}</code>\r\n            </div>\r\n            <gnx-ui-table (dataChange)=\"dataChanged($event)\" [tableConfig]=\"tableConfig\" [tableData]=\"tableData\"></gnx-ui-table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -637,7 +692,7 @@ module.exports = "<div class=\"app\">\r\n    <div class=\"header\">\r\n        <
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".app {\n  width: 96%;\n  min-height: 100vh;\n  padding: 2%;\n  background-color: #fafafa;\n}\n.app .header {\n  margin-bottom: 20px;\n}\n.app .dropdown-examples {\n  display: flex;\n  flex-wrap: wrap;\n  width: 100%;\n  margin: auto;\n  padding-top: 20px;\n  background-color: white;\n  box-shadow: 1px 1px 1px 0 #c8c8c8;\n  min-height: 200px;\n}\n.app .dropdown-examples .dropdown {\n  display: flex;\n  flex-direction: column;\n  width: 40%;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-bottom: 30px;\n}\n.app .dropdown-examples .dropdown header {\n  font-size: 14px;\n  margin-bottom: 10px;\n  font-weight: 700;\n}\n.app .dropdown-examples .dropdown .codeparams {\n  display: flex;\n  flex-direction: column;\n  min-height: 130px;\n}\n.app .dropdown-examples .dropdown .codeparams .padded {\n  padding-left: 20px;\n}\n"
+module.exports = ".app {\n  width: 96%;\n  min-height: 100vh;\n  padding: 2%;\n  background-color: #fafafa;\n}\n.app .header {\n  margin-bottom: 20px;\n}\n.app .examples {\n  display: flex;\n  flex-wrap: wrap;\n  width: 100%;\n  margin: auto;\n  margin-bottom: 20px;\n  padding-top: 20px;\n  background-color: white;\n  box-shadow: 1px 1px 1px 0 #c8c8c8;\n  min-height: 200px;\n}\n.app .examples .dropdown,\n.app .examples .table {\n  display: flex;\n  flex-direction: column;\n  width: 40%;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-bottom: 30px;\n}\n.app .examples .dropdown header,\n.app .examples .table header {\n  font-size: 14px;\n  margin-bottom: 10px;\n  font-weight: 700;\n}\n.app .examples .dropdown .codeparams,\n.app .examples .table .codeparams {\n  display: flex;\n  flex-direction: column;\n  min-height: 130px;\n}\n.app .examples .dropdown .codeparams .padded,\n.app .examples .table .codeparams .padded {\n  padding-left: 20px;\n  max-width: 200px;\n}\n.app .examples .table {\n  width: 100%;\n}\n"
 
 /***/ }),
 
@@ -661,16 +716,57 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.cd = '<gnx-ui-dropdown\n' +
-            '                [placeholder]="\'Select Cheese\'"\n' +
-            '                [items]="[\'Mozarella\', \'Cottage\', \'Vintage\']">\n' +
-            '            </gnx-ui-dropdown>';
     }
     AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
         setTimeout(function () {
-        }, 3000);
+            _this.tableConfig = {
+                'generalConfig': {
+                    'isRowClickable': false
+                },
+                'tableColumnConfig': [
+                    {
+                        'columnname': 'Header 1',
+                        'columnkeybinding': 'header1',
+                        'columnwidth': '5%',
+                        'type': 'checkbox'
+                    },
+                    {
+                        'columnname': 'Header 2',
+                        'columnkeybinding': 'header2',
+                        'columnwidth': '85%',
+                        'type': 'text',
+                        'isclickable': true
+                    },
+                    {
+                        'columnname': 'Header 3',
+                        'columnkeybinding': 'header3',
+                        'columnwidth': '10%',
+                        'type': 'button',
+                        'buttonname': 'Save'
+                    }
+                ],
+                'style': {
+                    'headerbackgroundcolor': '#DAE0E0'
+                }
+            };
+            _this.tableData = [{
+                    'header1': true,
+                    'header2': 'data-col2-row1 ',
+                    'header3': 'data-col3-row1',
+                }, {
+                    'header1': false,
+                    'header2': 'data-col2-row2',
+                    'header3': 'data-col3-row2',
+                }
+            ];
+        }, 1000);
     };
-    AppComponent.prototype.hello = function () {
+    AppComponent.prototype.dataChanged = function (event) {
+        var type = event['column'];
+        var row = event['data'];
+        console.log(type);
+        console.log(row);
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -795,7 +891,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ac14311\Projects\PythonApp\NgStar\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\GTX\PycharmProjects\Open Source\gnx-ui-app\src\main.ts */"./src/main.ts");
 
 
 /***/ })

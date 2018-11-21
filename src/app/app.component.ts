@@ -14,37 +14,41 @@ export class AppComponent implements OnInit {
         setTimeout(() => {
 
             this.tableConfig = {
+                'generalConfig': {
+                    'isRowClickable': false
+                },
                 'tableColumnConfig': [
                     {
                         'columnname': 'Header 1',
                         'columnkeybinding': 'header1',
-                        'columnwidth': '30%',
+                        'columnwidth': '5%',
                         'type': 'checkbox'
                     },
                     {
                         'columnname': 'Header 2',
                         'columnkeybinding': 'header2',
-                        'columnwidth': '60%',
-                        'type': 'text'
+                        'columnwidth': '85%',
+                        'type': 'text',
+                        'isclickable': true
                     },
                     {
                         'columnname': 'Header 3',
                         'columnkeybinding': 'header3',
                         'columnwidth': '10%',
                         'type': 'button',
-                        'buttonname': 'Click Me'
+                        'buttonname': 'Save'
                     }
 
                 ],
                 'style': {
-                    'headerbackgroundcolor': 'white'
+                    'headerbackgroundcolor': '#DAE0E0'
 
                 }
             };
 
             this.tableData = [{
                 'header1': true,
-                'header2': 'data-col2-row1',
+                'header2': 'data-col2-row1 ',
                 'header3': 'data-col3-row1',
             }, {
                 'header1': false,
@@ -58,7 +62,7 @@ export class AppComponent implements OnInit {
     }
 
     dataChanged(event) {
-        const type = event['type'];
+        const type = event['column'];
         const row = event['data'];
         console.log(type);
         console.log(row);
