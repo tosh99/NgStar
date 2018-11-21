@@ -3,8 +3,7 @@
         <h2>Dropdown Examples</h2>
     </div>
 
-
-    <div class="dropdown-examples">
+    <div class="examples">
         <div class="dropdown">
             <header>A Simple Dropdown with a Simple Array</header>
             <div class="codeparams">
@@ -77,6 +76,28 @@
                 [isAddTag]="true">
             </gnx-ui-dropdown>
         </div>
+    </div>
+
+    <div class="header">
+        <h2>Table Examples</h2>
+    </div>
+
+
+    <div class="examples">
+        <div class="table">
+            <header>A Simple Table with a Simple Array</header>
+            <div class="codeparams">
+                <code> &lt;gnx-ui-table </code>
+                <code class="padded">[tableConfig]="tableConfig"</code>
+                <code class="padded">[errorMessage]="err"</code>
+                <code class="padded">[tableData]="tableData"></code>
+                <code>&lt;/gnx-ui-table></code>
+                <code><b>Table Config : </b>{{tableConfig | json}}</code>
+                <code><b>Table Data : </b>{{tableData | json}}</code>
+            </div>
+            <gnx-ui-table (dataChange)="dataChanged($event)" [tableConfig]="tableConfig" [tableData]="tableData"></gnx-ui-table>
+        </div>
+
     </div>
 
 

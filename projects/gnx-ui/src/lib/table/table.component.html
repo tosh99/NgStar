@@ -1,3 +1,32 @@
-<p>
-  table works!
-</p>
+<div class="table">
+
+    <div class="table-row table-error" *ngIf="internal_error_message && isDebugMode">
+        <header>{{internal_error_message}}</header>
+    </div>
+
+
+    <div class="table-row table-header" [style.backgroundColor]="tableConfig['style']['headerbackgroundcolor']">
+        <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']" [style.width]="column['columnwidth']">
+            <header>{{column['columnname']}}</header>
+        </div>
+    </div>
+
+    <div class="table-row table-data" *ngFor="let row of tableData" (click)="onButtonClick('row',row)">
+        <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']" [style.width]="column['columnwidth']">
+            <header *ngIf="column['type'] === 'text'">{{row[column['columnkeybinding']]}}</header>
+            <input [title]="row[column['columnkeybinding']]" type="checkbox" *ngIf="column['type'] === 'checkbox'" [(ngModel)]="row[column['columnkeybinding']]">
+            <input [title]="row[column['columnkeybinding']]" type="radio" *ngIf="column['type'] === 'radio'" [(ngModel)]="row[column['columnkeybinding']]">
+            <div class="button" (click)="onButtonClick(column['columnname'], row)" *ngIf="column['type'] === 'button'">{{column['buttonname']}}</div>
+        </div>
+    </div>
+
+    <div class="table-row table-error" *ngIf="!isLoading && errorMessage">
+        <header>{{errorMessage}}</header>
+    </div>
+
+    <div class="table-row table-error" *ngIf="isLoading">
+        <header>Loading</header>
+    </div>
+
+
+</div>

@@ -53,8 +53,6 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-
-
         if (this.items === undefined) {
             this.items = [];
         }
@@ -105,9 +103,6 @@ export class DropdownComponent implements OnInit, OnChanges {
 
         // Set PlaceHolder
         this.setSelectedItemText(this.buttonValue);
-        console.log(this.isBindEnabled);
-
-
     }
 
     ngOnChanges() {
@@ -167,7 +162,6 @@ export class DropdownComponent implements OnInit, OnChanges {
 
                                 for (const val of this.items) {
                                     for (const valsel of this.selectedItem) {
-                                        console.log(valsel);
 
                                         let temp;
                                         if (this.isBindEnabled && this.isSelectBindValue) {
@@ -175,7 +169,6 @@ export class DropdownComponent implements OnInit, OnChanges {
                                         } else {
                                             temp = val;
                                         }
-                                        console.log(temp);
                                         if (temp === valsel && !this.isMultiSelectInitialised) {
                                             isfound = true;
                                             this.multiSelectedItems.push(val);
