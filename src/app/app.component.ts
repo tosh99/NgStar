@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
 
             this.tableConfig = {
                 'generalConfig': {
-                    'isRowClickable': false
+                    'isRowClickable': false,
+                    'defaultSortKey': 'header2'
                 },
                 'tableColumnConfig': [
                     {
@@ -27,13 +28,20 @@ export class AppComponent implements OnInit {
                     {
                         'columnname': 'Header 2',
                         'columnkeybinding': 'header2',
-                        'columnwidth': '85%',
+                        'columnwidth': '55%',
                         'type': 'text',
                         'isclickable': true
                     },
                     {
                         'columnname': 'Header 3',
                         'columnkeybinding': 'header3',
+                        'columnwidth': '30%',
+                        'type': 'text',
+                        'isclickable': true
+                    },
+                    {
+                        'columnname': 'Header 4',
+                        'columnkeybinding': 'header4',
                         'columnwidth': '10%',
                         'type': 'button',
                         'buttonname': 'Save'
@@ -50,11 +58,19 @@ export class AppComponent implements OnInit {
                 'header1': true,
                 'header2': 'data-col2-row1 ',
                 'header3': 'data-col3-row1',
+                'header4': 'data-col3-row1',
             }, {
                 'header1': false,
                 'header2': 'data-col2-row2',
                 'header3': 'data-col3-row2',
-            }
+                'header4': 'data-col3-row2',
+            },
+                {
+                  'header1': true,
+                    'header2': 'data-col2-row3',
+                    'header3': 'data-col3-row3',
+                    'header4': 'data-col3-row3',
+                }
 
             ];
 
