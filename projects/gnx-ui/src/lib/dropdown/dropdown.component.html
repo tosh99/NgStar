@@ -1,4 +1,4 @@
-<div class="dropdown" [ngClass]="{'material':theme === 'material'}" [style.width]="style['width']" [style.minWidth]="style['min-width']">
+<div class="dropdown" [ngClass]="{'material':theme === 'material','default':theme === 'default'}" [style.width]="style['width']" [style.minWidth]="style['min-width']">
     <!--Button Container-->
     <div #parentdiv class="dropdown-button" [ngClass]="{'dropdown-open':isItemsDisplayed}" id="app-dropdown-id" (click)="toggleItemDisplay($event)">
 

@@ -93,7 +93,7 @@ export class DropdownComponent implements OnInit, OnChanges {
         }
 
         if (this.theme === undefined) {
-            this.theme = 'material';
+            this.theme = 'default';
         }
 
 
