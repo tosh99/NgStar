@@ -9,7 +9,6 @@ export class TextFilterPipe implements PipeTransform {
         const label = filter[1];
         const filterto = filter[0];
 
-
         if (!items || !filterto) {
             return items;
         }

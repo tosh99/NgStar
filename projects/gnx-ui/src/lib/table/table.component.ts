@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {TableComponentFacade} from './table.component.facade';
 
 @Component({
     selector: 'gnx-ui-table',
@@ -17,9 +18,12 @@ export class TableComponent implements OnInit, OnChanges {
 
     // Internal Variables
     internal_error_message;
+    sort_reverse = false;
+    sort_on;
+
+    table_facade = new TableComponentFacade();
 
     constructor() {
-
         if (this.isDebugMode === undefined) {
             this.isDebugMode = false;
         }
@@ -30,7 +34,6 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-
     }
 
 
@@ -52,6 +55,11 @@ export class TableComponent implements OnInit, OnChanges {
                 this.tableConfig['style'] = [];
             }
         }
+
+        if (this.tableConfig['generalConfig']['defaultSortKey']) {
+            this.sort_on = this.tableConfig['generalConfig']['defaultSortKey'];
+            this.sortData(this.sort_on, 'text');
+        }
     }
 
 
@@ -63,5 +71,22 @@ export class TableComponent implements OnInit, OnChanges {
         event.preventDefault();
         event.stopPropagation();
         this.dataChange.emit({'column': type, 'data': row});
+    }
+
+    sortData(sort_on, column_type) {
+        if (column_type === 'text') {
+            this.sort_reverse = !this.sort_reverse;
+            this.sort_on = sort_on;
+            let is_date = false;
+
+            if (sort_on.includes('date')) {
+                is_date = true;
+            }
+            if (this.sort_reverse) {
+                this.table_facade.commonReverseSortByKey(this.tableData, sort_on, is_date);
+            } else {
+                this.table_facade.commonSortByKey(this.tableData, sort_on, is_date);
+            }
+        }
     }
 }
