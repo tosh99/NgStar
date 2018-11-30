@@ -42,7 +42,6 @@
                 <header *ngIf="bindLabel === undefined">{{item}}</header>
                 <header *ngIf="bindLabel !== undefined">{{item[bindLabel]}}</header>
             </div>
-
             <header class="customItems" *ngIf="customItems.length !== 0">Regular Items</header>
             <div *ngFor="let item of items | textFilter:[searchText,bindLabel]" class="dropdown-item" (click)="selectItem(item)">
                 <header *ngIf="!isBindEnabled">{{item}}</header>

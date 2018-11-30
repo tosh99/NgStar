@@ -20,6 +20,7 @@ export class TableComponent implements OnInit, OnChanges {
     internal_error_message;
     sort_reverse = false;
     sort_on;
+    search_text = '';
 
     table_facade = new TableComponentFacade();
 
@@ -60,6 +61,9 @@ export class TableComponent implements OnInit, OnChanges {
             this.sort_on = this.tableConfig['generalConfig']['defaultSortKey'];
             this.sortData(this.sort_on, 'text');
         }
+
+        this.isLoading = !this.isLoading;
+
     }
 
 
@@ -74,18 +78,20 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     sortData(sort_on, column_type) {
-        if (column_type === 'text') {
-            this.sort_reverse = !this.sort_reverse;
-            this.sort_on = sort_on;
-            let is_date = false;
+        if (this.tableConfig['generalConfig']['isSortingEnabled']) {
+            if (column_type === 'text') {
+                this.sort_reverse = !this.sort_reverse;
+                this.sort_on = sort_on;
+                let is_date = false;
 
-            if (sort_on.includes('date')) {
-                is_date = true;
-            }
-            if (this.sort_reverse) {
-                this.table_facade.commonReverseSortByKey(this.tableData, sort_on, is_date);
-            } else {
-                this.table_facade.commonSortByKey(this.tableData, sort_on, is_date);
+                if (sort_on.includes('date')) {
+                    is_date = true;
+                }
+                if (this.sort_reverse) {
+                    this.table_facade.commonReverseSortByKey(this.tableData, sort_on, is_date);
+                } else {
+                    this.table_facade.commonSortByKey(this.tableData, sort_on, is_date);
+                }
             }
         }
     }

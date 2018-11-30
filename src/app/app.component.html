@@ -95,7 +95,7 @@
                 <code><b>Table Config : </b>{{tableConfig | json}}</code>
                 <code><b>Table Data : </b>{{tableData | json}}</code>
             </div>
-            <gnx-ui-table (dataChange)="dataChanged($event)" [tableConfig]="tableConfig" [tableData]="tableData"></gnx-ui-table>
+            <gnx-ui-table (dataChange)="dataChanged($event)" [(isLoading)]="is_loading" [tableConfig]="tableConfig" [tableData]="tableData"></gnx-ui-table>
         </div>
 
     </div>
