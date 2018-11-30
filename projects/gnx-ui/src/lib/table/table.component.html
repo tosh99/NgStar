@@ -4,19 +4,21 @@
         <header>{{internal_error_message}}</header>
     </div>
 
+    <input *ngIf="tableConfig['generalConfig']['isSearchEnable']" type="search" [(ngModel)]="search_text"/>
+
 
     <div class="table-row table-header" [style.backgroundColor]="tableConfig['style']['headerbackgroundcolor']">
         <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']"
              [style.width]="column['columnwidth']">
             <header (click)="sortData(column['columnkeybinding'], column['type'])">{{column['columnname']}}</header>
-            <fa *ngIf="(column['type']==='text' && sort_reverse && sort_on === column['columnkeybinding'])"
+            <fa *ngIf="((column['type']==='text' && sort_reverse && sort_on === column['columnkeybinding']) && tableConfig['generalConfig']['isSortingEnabled'])"
                 name="angle-down"></fa>
-            <fa *ngIf="(column['type']==='text' && !sort_reverse && sort_on === column['columnkeybinding'])"
+            <fa *ngIf="((column['type']==='text' && !sort_reverse && sort_on === column['columnkeybinding']) && tableConfig['generalConfig']['isSortingEnabled'])"
                 name="angle-up"></fa>
         </div>
     </div>
 
-    <div class="table-row table-data" *ngFor="let row of tableData">
+    <div class="table-row table-data" *ngFor="let row of tableData | textFilter: search_text">
         <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']"
              [style.width]="column['columnwidth']">
             <div class="text" *ngIf="column['type'] === 'text' && column['isclickable'] === true"
@@ -51,6 +53,8 @@
     <div class="table-row table-error" *ngIf="isLoading">
         <header>Loading</header>
     </div>
-
+    <div class="table-row table-error" *ngIf="((tableData | textFilter: search_text).length===0 && !isLoading)">
+        <header>No Data Found</header>
+    </div>
 
 </div>

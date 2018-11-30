@@ -8,15 +8,18 @@ import {Component, OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
     tableConfig;
     tableData;
+    is_loading = true;
 
     ngOnInit() {
-
+        this.is_loading = true;
         setTimeout(() => {
 
             this.tableConfig = {
                 'generalConfig': {
                     'isRowClickable': false,
-                    'defaultSortKey': 'header2'
+                    'defaultSortKey': 'header2',
+                    'isSortingEnabled': true,
+                    'isSearchEnable': true
                 },
                 'tableColumnConfig': [
                     {
@@ -75,6 +78,8 @@ export class AppComponent implements OnInit {
             ];
 
         }, 1000);
+
+        this.is_loading = false;
     }
 
     dataChanged(event) {
