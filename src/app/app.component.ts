@@ -16,33 +16,40 @@ export class AppComponent implements OnInit {
             this.tableConfig = {
                 'generalConfig': {
                     'isRowClickable': false,
-                    'defaultSortKey': 'header2'
+                    'defaultSortKey': 'header2',
+                    'defaultSortOrder': 'asc',
+                    'islocallysorted': false,
+                    'tableHeaderStyle': {},
+                    'tableDataStyle': {},
+                    'isloading': false
                 },
                 'tableColumnConfig': [
                     {
+                        'color': 'red',
                         'columnname': 'Header 1',
                         'columnkeybinding': 'header1',
-                        'columnwidth': '5%',
-                        'type': 'checkbox'
+                        'width': '5%',
+                        'type': 'checkbox',
                     },
                     {
+                        'color': 'red',
                         'columnname': 'Header 2',
                         'columnkeybinding': 'header2',
-                        'columnwidth': '55%',
+                        'width': '55%',
                         'type': 'text',
                         'isclickable': true
                     },
                     {
                         'columnname': 'Header 3',
                         'columnkeybinding': 'header3',
-                        'columnwidth': '30%',
+                        'width': '30%',
                         'type': 'text',
                         'isclickable': true
                     },
                     {
                         'columnname': 'Header 4',
                         'columnkeybinding': 'header4',
-                        'columnwidth': '10%',
+                        'width': '10%',
                         'type': 'button',
                         'buttonname': 'Save'
                     }
@@ -64,13 +71,52 @@ export class AppComponent implements OnInit {
                 'header2': 'data-col2-row2',
                 'header3': 'data-col3-row2',
                 'header4': 'data-col3-row2',
-            },
-                {
-                  'header1': true,
-                    'header2': 'data-col2-row3',
-                    'header3': 'data-col3-row3',
-                    'header4': 'data-col3-row3',
-                }
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }, {
+                'header1': true,
+                'header2': 'data-col2-row3',
+                'header3': 'data-col3-row3',
+                'header4': 'data-col3-row3',
+            }
 
             ];
 

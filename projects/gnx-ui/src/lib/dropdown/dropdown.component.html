@@ -8,8 +8,8 @@
             </div>
             <div class="deletecontainer" (click)="clearSelected()" *ngIf="isClearable && selectedItem !== undefined">
                 <header *ngIf="style['deleteiconsrc'] === undefined && theme === 'default'">X</header>
-                <img *ngIf="style['deleteiconsrc'] !== undefined && theme === 'default'" [src]="style['deleteiconsrc']" width="20" height="20">
-                <i *ngIf="theme === 'material'" class="material-icons">clear</i>
+                <img alt="" *ngIf="style['deleteiconsrc'] !== undefined && theme === 'default'" [src]="style['deleteiconsrc']" width="20" height="20">
+                <i *ngIf="theme === 'material'" class="fas fa-times"></i>
             </div>
         </div>
         <div class="multiselect-container" *ngIf="isMultiSelect">
@@ -23,8 +23,8 @@
                 <header>{{buttonValue}}</header>
             </div>
             <div class="deletecontainer" (click)="clearSelected()" *ngIf="isClearable && selectedItem !== undefined && multiSelectedItems.length > 0">
-                <img *ngIf="style['deleteiconsrc'] !== undefined && theme === 'default'" [src]="style['deleteiconsrc']" width="20" height="20">
-                <i *ngIf="theme === 'material'" class="material-icons">clear</i>
+                <img alt="" *ngIf="style['deleteiconsrc'] !== undefined && theme === 'default'" [src]="style['deleteiconsrc']" width="20" height="20">
+                <i *ngIf="theme === 'material'" class="fas fa-times"></i>
             </div>
         </div>
     </div>

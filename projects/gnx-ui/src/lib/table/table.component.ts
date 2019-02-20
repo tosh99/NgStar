@@ -43,7 +43,8 @@ export class TableComponent implements OnInit, OnChanges {
                 'tableColumnConfig': [],
                 'style': {},
                 'generalConfig': {
-                    'isRowClickable': false
+                    'isRowClickable': false,
+                    'isloading': true
                 }
             };
         } else {

@@ -6,13 +6,8 @@
     <div class="examples">
         <div class="dropdown">
             <header>A Simple Dropdown with a Simple Array</header>
-            <div class="codeparams">
-                <code> &lt;gnx-ui-dropdown</code>
-                <code class="padded">[placeholder]="'Select Cheese'"</code>
-                <code class="padded">[items]="['Mozarella', 'Cottage', 'Vintage']"></code>
-                <code>&lt;/gnx-ui-dropdown></code>
-            </div>
             <gnx-ui-dropdown
+                [theme]="'material'"
                 [placeholder]="'Select Cheese'"
                 [items]="['Mozarella', 'Cottage', 'Vintage']">
             </gnx-ui-dropdown>
@@ -20,14 +15,6 @@
 
         <div class="dropdown">
             <header>A Simple Dropdown with an Object Array</header>
-            <div class="codeparams">
-                <code> &lt;gnx-ui-dropdown</code>
-                <code class="padded">[placeholder]="'Select Cheese'"</code>
-                <code class="padded">[items]=[objectlist]</code>
-                <code class="padded">[bindLabel]="'name'"</code>
-                <code class="padded">[bindValue]="'id'"></code>
-                <code>&lt;/gnx-ui-dropdown></code>
-            </div>
             <gnx-ui-dropdown
                 [placeholder]="'Select Cheese'"
                 [items]="[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]"
@@ -38,15 +25,6 @@
 
         <div class="dropdown">
             <header>A Simple Dropdown with an Object Array with MultiSelect</header>
-            <div class="codeparams">
-                <code> &lt;gnx-ui-dropdown</code>
-                <code class="padded">[placeholder]="'Select Cheese'"</code>
-                <code class="padded">[items]=[objectlist]</code>
-                <code class="padded">[bindLabel]="'name'"</code>
-                <code class="padded">[bindValue]="'id'"</code>
-                <code class="padded">[isMultiSelect]="true"></code>
-                <code>&lt;/gnx-ui-dropdown></code>
-            </div>
             <gnx-ui-dropdown
                 [placeholder]="'Select Cheese'"
                 [items]="[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]"
@@ -57,16 +35,6 @@
         </div>
         <div class="dropdown">
             <header>A Simple Dropdown with an Object Array with MultiSelect and Tag Addition</header>
-            <div class="codeparams">
-                <code> &lt;gnx-ui-dropdown</code>
-                <code class="padded">[placeholder]="'Select Cheese'"</code>
-                <code class="padded">[items]=[objectlist]</code>
-                <code class="padded">[bindLabel]="'name'"</code>
-                <code class="padded">[bindValue]="'id'"</code>
-                <code class="padded">[isMultiSelect]="true"</code>
-                <code class="padded">[isAddTag]="true"></code>
-                <code>&lt;/gnx-ui-dropdown></code>
-            </div>
             <gnx-ui-dropdown
                 [placeholder]="'Select Cheese'"
                 [items]="[{'id':1,'name':'Mozarella'},{'id':2,'name':'Cottage'}]"
@@ -85,16 +53,6 @@
 
     <div class="examples">
         <div class="table">
-            <header>A Simple Table with a Simple Array</header>
-            <div class="codeparams">
-                <code> &lt;gnx-ui-table </code>
-                <code class="padded">[tableConfig]="tableConfig"</code>
-                <code class="padded">[errorMessage]="err"</code>
-                <code class="padded">[tableData]="tableData"></code>
-                <code>&lt;/gnx-ui-table></code>
-                <code><b>Table Config : </b>{{tableConfig | json}}</code>
-                <code><b>Table Data : </b>{{tableData | json}}</code>
-            </div>
             <gnx-ui-table (dataChange)="dataChanged($event)" [tableConfig]="tableConfig" [tableData]="tableData"></gnx-ui-table>
         </div>
 
