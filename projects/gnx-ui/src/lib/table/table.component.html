@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="table-data-container">
+    <div class="table-data-container" *ngIf="tableConfig['generalConfig']['isloading']!=true && errorMessage === undefined">
         <div class="table-row table-data" *ngFor="let row of tableData">
             <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']" [ngStyle]="column">
                 <div class="text" *ngIf="column['type'] === 'text' && column['isclickable'] === true" (click)="onButtonClick(column['columnkeybinding'],row)">
@@ -34,11 +34,11 @@
         </div>
     </div>
 
-    <div class="table-row table-error" *ngIf="!isLoading && errorMessage">
+    <div class="table-row table-error" *ngIf="errorMessage">
         <header>{{errorMessage}}</header>
     </div>
 
-    <div class="table-row table-error" *ngIf="isLoading">
+    <div class="table-row table-error" *ngIf="tableConfig['generalConfig']['isloading']">
         <header>Loading</header>
     </div>
 
