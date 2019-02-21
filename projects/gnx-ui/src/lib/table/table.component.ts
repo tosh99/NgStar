@@ -11,10 +11,10 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() tableConfig;
     @Input() tableData;
     @Input() isDebugMode: boolean;
-    @Input() isLoading: boolean;
     @Input() errorMessage: string;
 
     @Output() dataChange = new EventEmitter();
+    @Output() sortingColumnDetails = new EventEmitter();
 
     // Internal Variables
     internal_error_message;
@@ -26,10 +26,6 @@ export class TableComponent implements OnInit, OnChanges {
     constructor() {
         if (this.isDebugMode === undefined) {
             this.isDebugMode = false;
-        }
-
-        if (this.isLoading === undefined) {
-            this.isLoading = false;
         }
     }
 
@@ -48,6 +44,16 @@ export class TableComponent implements OnInit, OnChanges {
                 }
             };
         } else {
+            const sortingparams = this.tableConfig['generalConfig']['sortingparameters'];
+            if (sortingparams['defaultSrotKey'] !== undefined) {
+                if (sortingparams['isAscOrder'] === undefined) {
+                    sortingparams['isAscOrder'] = true;
+                }
+                if (sortingparams['islocallysorted'] === undefined) {
+                    sortingparams['islocallysorted'] = true;
+                }
+            }
+
             if (this.tableConfig['tableColumnConfig'] === undefined) {
                 this.tableConfig['tableColumnConfig'] = [];
             }
@@ -56,10 +62,14 @@ export class TableComponent implements OnInit, OnChanges {
                 this.tableConfig['style'] = [];
             }
         }
-
-        if (this.tableConfig['generalConfig']['defaultSortKey']) {
-            this.sort_on = this.tableConfig['generalConfig']['defaultSortKey'];
-            this.sortData(this.sort_on, 'text');
+        if (this.tableConfig['generalConfig']['sortingparameters']) {
+            if (this.tableConfig['generalConfig']['sortingparameters']['defaultSortKey']) {
+                this.sort_on = this.tableConfig['generalConfig']['sortingparameters']['defaultSortKey'];
+                this.sortData(this.sort_on, 'text');
+            } else {
+                this.tableConfig['generalConfig']['isloading'] = false;
+                this.errorMessage = 'DefaulSortKey error.';
+            }
         }
     }
 
@@ -75,18 +85,35 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     sortData(sort_on, column_type) {
-        if (column_type === 'text') {
-            this.sort_reverse = !this.sort_reverse;
-            this.sort_on = sort_on;
-            let is_date = false;
+        if (this.tableConfig['generalConfig']['sortingparameters']['islocallysorted']) {
+            if (column_type === 'text') {
+                this.sort_reverse = !this.sort_reverse;
+                this.sort_on = sort_on;
+                let is_date = false;
 
-            if (sort_on.includes('date')) {
-                is_date = true;
+                this.tableConfig['generalConfig']['isloading'] = true;
+
+                if (sort_on.includes('date')) {
+                    is_date = true;
+                }
+                if (this.sort_reverse) {
+                    this.table_facade.commonReverseSortByKey(this.tableData, sort_on, is_date);
+                } else {
+                    this.table_facade.commonSortByKey(this.tableData, sort_on, is_date);
+                }
+                setTimeout(() => {
+                    this.tableConfig['generalConfig']['isloading'] = false;
+                }, 2500);
             }
-            if (this.sort_reverse) {
-                this.table_facade.commonReverseSortByKey(this.tableData, sort_on, is_date);
-            } else {
-                this.table_facade.commonSortByKey(this.tableData, sort_on, is_date);
+        } else {
+            if (column_type === 'text') {
+                this.sort_reverse = !this.sort_reverse;
+                const sorting_details = {
+                    'sort_on': sort_on,
+                    'sort_order_desc': this.sort_reverse
+                };
+                this.tableConfig['generalConfig']['isloading'] = true;
+                this.sortingColumnDetails.emit(sorting_details);
             }
         }
     }

@@ -16,12 +16,13 @@ export class AppComponent implements OnInit {
             this.tableConfig = {
                 'generalConfig': {
                     'isRowClickable': false,
-                    'defaultSortKey': 'header2',
-                    'defaultSortOrder': 'asc',
-                    'islocallysorted': false,
+                    'sortingparameters': {
+                        'defaultSortKey': 'header2',
+                        'isAscOrder': false,
+                        'islocallysorted': true
+                    },
                     'tableHeaderStyle': {},
                     'tableDataStyle': {},
-                    'isloading': false
                 },
                 'tableColumnConfig': [
                     {
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
                         'columnname': 'Header 1',
                         'columnkeybinding': 'header1',
                         'width': '5%',
-                        'type': 'checkbox',
+                        'type': 'checkbox'
                     },
                     {
                         'color': 'red',
