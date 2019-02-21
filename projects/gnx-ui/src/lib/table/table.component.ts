@@ -110,7 +110,7 @@ export class TableComponent implements OnInit, OnChanges {
                 this.sort_reverse = !this.sort_reverse;
                 const sorting_details = {
                     'sort_on': sort_on,
-                    'sort_order': this.sort_reverse
+                    'sort_order_desc': this.sort_reverse
                 };
                 this.tableConfig['generalConfig']['isloading'] = true;
                 this.sortingColumnDetails.emit(sorting_details);
