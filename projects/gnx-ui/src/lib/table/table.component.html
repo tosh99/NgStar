@@ -1,10 +1,10 @@
-<div class="table">
+<div class="table" [ngStyle]="tableConfig['generalConfig']['tablestyle']">
 
     <div class="table-row table-error" *ngIf="internal_error_message && isDebugMode">
         <header>{{internal_error_message}}</header>
     </div>
 
-    <div class="table-row table-header">
+    <div class="table-row table-header" [ngStyle]="tableConfig['generalConfig']['tableheaderstyle']">
         <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']" [ngStyle]="column">
             <header (click)="sortData(column['columnkeybinding'], column['type'])">{{column['columnname']}}</header>
             <i *ngIf="(column['type']==='text' && sort_reverse && sort_on === column['columnkeybinding'])" class="fas fa-angle-down"></i>
@@ -12,8 +12,12 @@
         </div>
     </div>
 
-    <div class="table-data-container" *ngIf="tableConfig['generalConfig']['isloading']!=true && errorMessage === undefined">
-        <div class="table-row table-data" *ngFor="let row of tableData">
+    <div class="table-data-container"
+         snInfiniteScroll
+         (scrollEnd)="onScrollEnd()"
+         *ngIf="tableConfig['generalConfig']['isloading']!==true && errorMessage === undefined"
+         [ngStyle]="tableConfig['generalConfig']['tabledatastyle']">
+        <div class="table-row table-data" *ngFor="let row of tableData" [ngStyle]="tableConfig['generalConfig']['tablerowstyle']">
             <div class="table-column" *ngFor="let column of tableConfig['tableColumnConfig']" [ngStyle]="column">
                 <div class="text" *ngIf="column['type'] === 'text' && column['isclickable'] === true" (click)="onButtonClick(column['columnkeybinding'],row)">
                     <header>{{row[column['columnkeybinding']]}}</header>

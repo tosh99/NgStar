@@ -15,14 +15,16 @@ export class AppComponent implements OnInit {
 
             this.tableConfig = {
                 'generalConfig': {
-                    'isRowClickable': false,
+                    'isrowclickable': false,
+                    'isloading': false,
                     'sortingparameters': {
-                        'defaultSortKey': 'header2',
-                        'isAscOrder': false,
+                        'defaultsortkey': 'header2',
+                        'defaultsortorder': false,
                         'islocallysorted': true
                     },
-                    'tableHeaderStyle': {},
-                    'tableDataStyle': {},
+                    'tableheaderstyle': {},
+                    'tabledatastyle': {},
+                    'tablestyle': {}
                 },
                 'tableColumnConfig': [
                     {
@@ -56,10 +58,6 @@ export class AppComponent implements OnInit {
                     }
 
                 ],
-                'style': {
-                    'headerbackgroundcolor': '#DAE0E0'
-
-                }
             };
 
             this.tableData = [{

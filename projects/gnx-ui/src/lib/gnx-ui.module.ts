@@ -5,9 +5,10 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {TextFilterPipe} from './shared/directives/app-dropdown.pipe';
 import {GnxUiService} from './gnx-ui.service';
+import {InfiniteScrollModule} from '@thisissoon/angular-infinite-scroll';
 
 @NgModule({
-    imports: [FormsModule, CommonModule],
+    imports: [FormsModule, CommonModule, InfiniteScrollModule],
     declarations: [DropdownComponent, TableComponent, TextFilterPipe],
     exports: [DropdownComponent, TableComponent, TextFilterPipe],
     providers: [GnxUiService]

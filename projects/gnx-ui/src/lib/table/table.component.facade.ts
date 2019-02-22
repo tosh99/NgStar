@@ -4,7 +4,7 @@ export class TableComponentFacade {
     }
 
     // common method for sort a list by key
-    commonSortByKey(array, key, str) {
+    commonSortByKey(array, key, isdate) {
         if (array) {
             return array.sort(function (a, b) {
                 let x;
@@ -17,7 +17,7 @@ export class TableComponentFacade {
                     } else if (typeof (a[key] === 'string')) {
                         x = a[key].toLowerCase();
                         y = b[key].toLowerCase();
-                    } else if (str) {
+                    } else if (isdate) {
                         x = new Date(a[key]);
                         x /= 1000 + 900 + 330 * 60;
                         y = new Date(b[key]);
@@ -32,7 +32,7 @@ export class TableComponentFacade {
     }
 
     // common method for reverse sort a list by key
-    commonReverseSortByKey(array, key, str) {
+    commonReverseSortByKey(array, key, isdate) {
         if (array) {
             return array.sort(function (b, a) {
                 let x;
@@ -44,7 +44,7 @@ export class TableComponentFacade {
                 } else if (typeof (a[key] === 'string')) {
                     x = a[key].toLowerCase();
                     y = b[key].toLowerCase();
-                } else if (str) {
+                } else if (isdate) {
                     x = new Date(a[key]);
                     x /= 1000 + 900 + 330 * 60;
                     y = new Date(b[key]);

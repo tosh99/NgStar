@@ -13,8 +13,9 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() isDebugMode: boolean;
     @Input() errorMessage: string;
 
-    @Output() dataChange = new EventEmitter();
-    @Output() sortingColumnDetails = new EventEmitter();
+    @Output() change = new EventEmitter();
+    @Output() sort = new EventEmitter();
+    @Output() scroll = new EventEmitter();
 
     // Internal Variables
     internal_error_message;
@@ -37,42 +38,48 @@ export class TableComponent implements OnInit, OnChanges {
         if (this.tableConfig === undefined) {
             this.tableConfig = {
                 'tableColumnConfig': [],
-                'style': {},
                 'generalConfig': {
-                    'isRowClickable': false,
-                    'isloading': true
+                    'isrowclickable': false,
+                    'isloading': true,
+                    'sortingparameters': {
+                        'islocallysorted': true
+                    },
+                    'tableheaderstyle': {},
+                    'tablerowstyle': {},
+                    'tabledatastyle': {},
+                    'tablestyle': {},
+
                 }
             };
         } else {
-            const sortingparams = this.tableConfig['generalConfig']['sortingparameters'];
-            if (sortingparams['defaultSrotKey'] !== undefined) {
-                if (sortingparams['isAscOrder'] === undefined) {
-                    sortingparams['isAscOrder'] = true;
-                }
-                if (sortingparams['islocallysorted'] === undefined) {
-                    sortingparams['islocallysorted'] = true;
-                }
-            }
-
             if (this.tableConfig['tableColumnConfig'] === undefined) {
                 this.tableConfig['tableColumnConfig'] = [];
             }
 
-            if (this.tableConfig['style'] === undefined) {
-                this.tableConfig['style'] = [];
+            if (this.tableConfig['generalConfig'] === undefined) {
+                this.tableConfig['generalConfig'] = {
+                    'isrowclickable': false,
+                    'isloading': true,
+                    'sortingparameters': {
+                        'islocallysorted': true
+                    }
+                };
             }
-        }
-        if (this.tableConfig['generalConfig']['sortingparameters']) {
-            if (this.tableConfig['generalConfig']['sortingparameters']['defaultSortKey']) {
-                this.sort_on = this.tableConfig['generalConfig']['sortingparameters']['defaultSortKey'];
-                this.sortData(this.sort_on, 'text');
-            } else {
-                this.tableConfig['generalConfig']['isloading'] = false;
-                this.errorMessage = 'DefaulSortKey error.';
+
+            if (this.tableConfig['generalConfig']['sortingparameters'] === undefined) {
+                this.tableConfig['generalConfig']['sortingparameters'] = {
+                    'islocallysorted': true
+                };
             }
+
+
+            if (this.tableConfig['generalConfig']['sortingparameters']['defaultsortkey']) {
+                this.sortData(this.tableConfig['generalConfig']['sortingparameters']['defaultsortkey'], 'text');
+            }
+
+
         }
     }
-
 
     logError(error) {
         this.internal_error_message = error;
@@ -81,10 +88,15 @@ export class TableComponent implements OnInit, OnChanges {
     onButtonClick(type, row) {
         event.preventDefault();
         event.stopPropagation();
-        this.dataChange.emit({'column': type, 'data': row});
+        this.change.emit({'column': type, 'data': row});
     }
 
     sortData(sort_on, column_type) {
+        if (this.tableConfig['generalConfig']['sortingparameters']['islocallysorted'] === undefined) {
+            this.tableConfig['generalConfig']['sortingparameters']['islocallysorted'] = true;
+        }
+
+
         if (this.tableConfig['generalConfig']['sortingparameters']['islocallysorted']) {
             if (column_type === 'text') {
                 this.sort_reverse = !this.sort_reverse;
@@ -101,20 +113,24 @@ export class TableComponent implements OnInit, OnChanges {
                 } else {
                     this.table_facade.commonSortByKey(this.tableData, sort_on, is_date);
                 }
-                setTimeout(() => {
-                    this.tableConfig['generalConfig']['isloading'] = false;
-                }, 2500);
+
+                this.tableConfig['generalConfig']['isloading'] = false;
+
             }
         } else {
             if (column_type === 'text') {
                 this.sort_reverse = !this.sort_reverse;
                 const sorting_details = {
                     'sort_on': sort_on,
-                    'sort_order_desc': this.sort_reverse
+                    'sort_order': this.sort_reverse
                 };
                 this.tableConfig['generalConfig']['isloading'] = true;
-                this.sortingColumnDetails.emit(sorting_details);
+                this.sort.emit(sorting_details);
             }
         }
+    }
+
+    onScrollEnd() {
+        this.scroll.emit();
     }
 }

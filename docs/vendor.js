@@ -50616,7 +50616,7 @@ var CheckboxControlValueAccessor = /** @class */ (function () {
     CheckboxControlValueAccessor = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'input[type=checkbox][formControlName],input[type=checkbox][formControl],input[type=checkbox][ngModel]',
-            host: { '(change)': 'onChange($event.target.checked)', '(blur)': 'onTouched()' },
+            host: { '(change)': 'change($event.target.checked)', '(blur)': 'onTouched()' },
             providers: [CHECKBOX_VALUE_ACCESSOR]
         }),
         Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
@@ -50791,8 +50791,8 @@ var NumberValueAccessor = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
             host: {
-                '(change)': 'onChange($event.target.value)',
-                '(input)': 'onChange($event.target.value)',
+                '(change)': 'change($event.target.value)',
+                '(input)': 'change($event.target.value)',
                 '(blur)': 'onTouched()'
             },
             providers: [NUMBER_VALUE_ACCESSOR]
@@ -51014,7 +51014,7 @@ var RadioControlValueAccessor = /** @class */ (function () {
     RadioControlValueAccessor = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'input[type=radio][formControlName],input[type=radio][formControl],input[type=radio][ngModel]',
-            host: { '(change)': 'onChange()', '(blur)': 'onTouched()' },
+            host: { '(change)': 'change()', '(blur)': 'onTouched()' },
             providers: [RADIO_VALUE_ACCESSOR]
         }),
         Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
@@ -51070,8 +51070,8 @@ var RangeValueAccessor = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'input[type=range][formControlName],input[type=range][formControl],input[type=range][ngModel]',
             host: {
-                '(change)': 'onChange($event.target.value)',
-                '(input)': 'onChange($event.target.value)',
+                '(change)': 'change($event.target.value)',
+                '(input)': 'change($event.target.value)',
                 '(blur)': 'onTouched()'
             },
             providers: [RANGE_VALUE_ACCESSOR]
@@ -51292,7 +51292,7 @@ var SelectControlValueAccessor = /** @class */ (function () {
     SelectControlValueAccessor = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
-            host: { '(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
+            host: { '(change)': 'change($event.target.value)', '(blur)': 'onTouched()' },
             providers: [SELECT_VALUE_ACCESSOR]
         }),
         Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
@@ -51527,7 +51527,7 @@ var SelectMultipleControlValueAccessor = /** @class */ (function () {
     SelectMultipleControlValueAccessor = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
             selector: 'select[multiple][formControlName],select[multiple][formControl],select[multiple][ngModel]',
-            host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
+            host: { '(change)': 'change($event.target)', '(blur)': 'onTouched()' },
             providers: [SELECT_MULTIPLE_VALUE_ACCESSOR]
         }),
         Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
@@ -52758,7 +52758,7 @@ var FormControl = /** @class */ (function (_super) {
      * observables emit events with the latest status and value when the control value is updated.
      * When false, no events are emitted.
      * * `emitModelToViewChange`: When true or not supplied  (the default), each change triggers an
-     * `onChange` event to
+     * `change` event to
      * update the view.
      * * `emitViewToModelChange`: When true or not supplied (the default), each change triggers an
      * `ngModelChange`
